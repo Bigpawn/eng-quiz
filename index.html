@@ -969,6 +969,24 @@ trans:[
           Object.assign({ pid: pi, sec: 2, idx: i }, q),
         ),
       }));
+      /* 同一道题（句子与选项完全相同）可能在不同资料中重复出现
+         （实测：资料一与资料二之间有3组同题），随机抽题只保留一份，避免一套卷里出现重复题 */
+      const normQ = (t) =>
+        String(t || "")
+          .replace(/\s+/g, " ")
+          .trim()
+          .toLowerCase();
+      const P1UNIQUE = (() => {
+        const seen = new Set(),
+          out = [];
+        P1POOL.forEach((it) => {
+          const key = normQ(it.q) + "|" + it.o.map(normQ).join("|");
+          if (seen.has(key)) return;
+          seen.add(key);
+          out.push(it);
+        });
+        return out;
+      })();
       function srcLabel(it) {
         const n = "资料" + "一二三四"[it.pid];
         if (it.sec === 1) return n + " · 词汇第" + (it.idx + 1) + "题";
@@ -1157,14 +1175,25 @@ trans:[
             ti = [],
             cmap = {},
             rmap = {};
+          const seenP1 = new Set();
+          let pruned = false;
           ids.forEach((id) => {
             const s = id.split(":");
             const pid = +s[0],
               sec = +s[1],
               idx = +s[2];
-            if (sec === 1)
-              p1i.push(Object.assign({ pid, sec, idx }, PAPERS[pid].p1[idx]));
-            else if (sec === 2) (cmap[pid] = cmap[pid] || []).push(idx);
+            if (sec === 1) {
+              // 同题多副本（跨资料重复）只保留一份，其余副本直接从错题本移除
+              const item = Object.assign({ pid, sec, idx }, PAPERS[pid].p1[idx]);
+              const key = normQ(item.q);
+              if (seenP1.has(key)) {
+                delete SAVE.wrong[id];
+                pruned = true;
+                return;
+              }
+              seenP1.add(key);
+              p1i.push(item);
+            } else if (sec === 2) (cmap[pid] = cmap[pid] || []).push(idx);
             else if (sec === 3) {
               const key = pid + ":" + (idx >> 2);
               (rmap[key] = rmap[key] || {
@@ -1175,6 +1204,7 @@ trans:[
             } else
               ti.push(Object.assign({ pid, sec, idx }, PAPERS[pid].trans[idx]));
           });
+          if (pruned) persist();
           if (p1i.length) addP1(p1i);
           Object.keys(cmap).forEach((pid) => {
             const idxs = cmap[pid].sort((a, b) => a - b);
@@ -1228,7 +1258,7 @@ trans:[
           if (ti.length) addTrans(ti);
           return { mode, blocks };
         }
-        if (mode === "mock" || mode === "p1") addP1(sample(P1POOL, 20));
+        if (mode === "mock" || mode === "p1") addP1(sample(P1UNIQUE, 20));
         if (mode === "mock" || mode === "cloze")
           addClozeGroup(CLOZEPOOLS[(Math.random() * CLOZEPOOLS.length) | 0]);
         if (mode === "mock" || mode === "read") {
