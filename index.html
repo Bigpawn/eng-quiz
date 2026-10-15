@@ -253,6 +253,7 @@
       }
       .opt {
         display: flex;
+        flex-wrap: wrap;
         gap: 9px;
         align-items: flex-start;
         text-align: left;
@@ -265,6 +266,14 @@
         color: inherit;
         transition: 0.12s;
         line-height: 1.5;
+      }
+      .opt .note {
+        flex-basis: 100%;
+        font-size: 12px;
+        color: #64748b;
+        line-height: 1.55;
+        padding-left: 31px;
+        margin-top: 2px;
       }
       .opt i {
         font-style: normal;
@@ -370,6 +379,15 @@
         vertical-align: baseline;
       }
       /* ---------- 解析与翻译 ---------- */
+      .trbox {
+        background: #f8fafc;
+        border: 1px dashed var(--line);
+        border-radius: 9px;
+        padding: 8px 11px;
+        font-size: 13.5px;
+        margin: 0 0 10px;
+        color: #334155;
+      }
       .expl {
         background: #f0f7ff;
         border-left: 3px solid var(--blue);
@@ -378,6 +396,10 @@
         font-size: 13.5px;
         margin-top: 10px;
         color: #334155;
+      }
+      .expl.g {
+        background: #f0fdf4;
+        border-left-color: var(--green);
       }
       .yours,
       .ref {
@@ -609,1509 +631,285 @@
     <script>
       /* ===================== 数据（四份复习资料，共212题） ===================== */
       /*DATA_START*/
-      const PAPERS = [
-        {
-          name: "复习资料一",
-          p1: [
-            {
-              q: "To tell you the ____ , I don't agree with you.",
-              o: ["true", "truly", "truth", "truly"],
-              a: 2,
-              e: "固定句型 to tell you the truth（说实话），空格处需用名词 truth。",
-            },
-            {
-              q: "I owe you some money. Let me pay you ____ now.",
-              o: ["back", "for", "in", "to"],
-              a: 0,
-              e: "pay back「偿还（欠款）」。句意：我欠你钱，现在还你。pay for 是「为某物付钱」，宾语是东西而不是人。",
-            },
-            {
-              q: "The banker will explain the terms of loan to you ____ detail.",
-              o: ["on", "in", "with", "out of"],
-              a: 1,
-              e: "固定搭配 in detail「详细地」。",
-            },
-            {
-              q: "The picture reminds me ____ the time we spent together in New York.",
-              o: ["of", "in", "for", "to"],
-              a: 0,
-              e: "remind sb of sth「使某人想起某事」。",
-            },
-            {
-              q: "I'm rather anxious ____ her, for I haven't heard from her for a long time.",
-              o: ["toward", "about", "in", "over"],
-              a: 1,
-              e: "be anxious about「为……担忧」，后半句「很久没有她的消息」印证了担心。",
-            },
-            {
-              q: "I suddenly realized that he was trying to ____ quarrelling with me.",
-              o: ["consider", "enjoy", "avoid", "prevent"],
-              a: 2,
-              e: "avoid doing sth「避免做某事」，后接动名词。consider doing 虽也接 doing，但「考虑吵架」语义不通；prevent 用法是 prevent sb (from) doing。",
-            },
-            {
-              q: "It was not a serious accident; our car needs only some ____ repairs.",
-              o: ["major", "secondary", "minor", "primary"],
-              a: 2,
-              e: "词义辨析：前半句说「不是严重事故」→ 只需要 minor（小的）修理。major 大的；secondary 次要的；primary 首要的。",
-            },
-            {
-              q: "Don't ____ to let me know if there is anything I can do for you.",
-              o: ["reject", "prevent", "hesitate", "refuse"],
-              a: 2,
-              e: "hesitate to do sth「犹豫（不愿）做某事」。语境：有需要尽管开口，别犹豫。",
-            },
-            {
-              q: "His ears are highly sensitive ____ any unusual sound in the machine.",
-              o: ["of", "to", "on", "by"],
-              a: 1,
-              e: "be sensitive to「对……敏感」。",
-            },
-            {
-              q: "We are looking forward to ____ to the lecture by the famous professor.",
-              o: ["send", "be sent", "being sent", "sending"],
-              a: 2,
-              e: "look forward to 中的 to 是介词，后接动名词；「被派去听讲座」要用被动式 being sent。",
-            },
-            {
-              q: "Only by working hard ____ succeed.",
-              o: ["can you", "you can", "should you", "you should"],
-              a: 0,
-              e: "「Only + 状语」位于句首时句子要部分倒装：Only by working hard can you succeed（只有努力你才能成功）。B、D 语序错误。",
-            },
-            {
-              q: "Jenny didn't have time to go to concert last night because she was busy ____ for her examination.",
-              o: [
-                "to prepare",
-                "to be prepared",
-                "preparing",
-                "being prepared",
-              ],
-              a: 2,
-              e: "be busy doing sth「忙于做某事」。",
-            },
-            {
-              q: "If you spare half an hour each day to read an English newspaper, you will surely be able to read ____ .",
-              o: ["efficiently", "sufficiently", "actually", "purposefully"],
-              a: 0,
-              e: "词义辨析：每天坚持读报，阅读会变得高效 → efficiently（高效地）。sufficiently 足够地；actually 实际上；purposefully 有目的地。",
-            },
-            {
-              q: "____ you've got a chance, you might as well make full use of it.",
-              o: ["Now that", "After", "In that", "As soon as"],
-              a: 0,
-              e: "now that「既然」：既然得到了机会，不妨充分利用。might as well「不妨」。",
-            },
-            {
-              q: "The real trouble ____ their lack of confidence in their abilities.",
-              o: ["lies in", "lies on", "results in", "leads to"],
-              a: 0,
-              e: "lie in「在于」：真正的麻烦在于缺乏自信。result in / lead to 都表示「导致」，后面要接结果而不是内容。",
-            },
-            {
-              q: "You will be given a ticket if you ____ the speed limit.",
-              o: ["proceed", "exceed", "succeed", "precede"],
-              a: 1,
-              e: "词形辨析：exceed the speed limit「超速」。proceed 继续进行；succeed 成功；precede 先于。超速会被开罚单。",
-            },
-            {
-              q: "The movie star ____ with your sister, didn't he?",
-              o: [
-                "was used to dance",
-                "used to dancing",
-                "used to dance",
-                "was used to dancing",
-              ],
-              a: 2,
-              e: "used to do「过去常常做」；be used to doing「习惯于做」。反义疑问部分 didn't he 说明是对过去的陈述。",
-            },
-            {
-              q: "The three hours I spent in the school library ____ my old passion for reading.",
-              o: [
-                "brought about",
-                "brought over",
-                "brought up",
-                "brought back",
-              ],
-              a: 3,
-              e: "bring back「唤回、重新唤起」旧日的阅读热情。bring about 导致；bring up 抚养/提出；bring over 带来。",
-            },
-            {
-              q: "Mother insisted that ____ .",
-              o: [
-                "they are to be back before nine in the evening",
-                "they ought to be back before nine in the evening",
-                "they be back before nine in the evening",
-                "they had to be back before nine in the evening",
-              ],
-              a: 2,
-              e: "insist 表示「坚决要求」时，宾语从句用虚拟语气：(should +) 动词原形 → they be back。",
-            },
-            {
-              q: "The child was ____ immediately after supper.",
-              o: [
-                "so tired that he went to bed",
-                "enough tired to go to bed",
-                "too tired to go to bed",
-                "very tired, he went to bed",
-              ],
-              a: 0,
-              e: "so...that「如此……以至于」：累得吃完晚饭立刻就上床睡了。C 项 too tired to go to bed 意为「太累而不去睡觉」，语义相反。",
-            },
-          ],
-          cloze: {
-            passage:
-              'Do you forget to turn off the lights and heaters when you go out of a room? In 2040 it will not {21}. They will turn themselves off — and on again when you return. A sensor will {22} the presence of a human and turn the systems on, and when the humans {23}, it will turn them off again.\nThe sensors will work {24} the central home computer, and they will do much more than just turn the fires and lights on and off for you. They will detect {25} electrical appliances, plugs or switches, {26} them so that they cannot harm anyone and then {27} you that they need {28}. They will detect fire and if you are out of the house, the computer will call the fire brigade. It will also call the police {29} the sensors detect an intruder. This will not be too difficult {30} the locks on the {31} doors will be electronic. You will open them using your {32} card — the one you use for {33} — maybe using a number {34} only to you.\nThe computer will be {35} than a fireman-policeman servant. It will be an entertainer, and most of your {36} will come {37} into your home. It does now, {38} by 2040 "entertainment" will {39} much more. For one thing, you will be able to take {40} actively, rather than just watching...',
-            qs: [
-              {
-                o: ["matter", "function", "work", "mind"],
-                a: 0,
-                e: "not matter「不要紧、没关系」：到2040年忘了关灯和暖气也不要紧（它们会自己关）。",
-              },
-              {
-                o: ["evaluate", "uncover", "detect", "expose"],
-                a: 2,
-                e: "传感器「探测」到人的存在用 detect，下文多次重复出现 detect（detect fire / the sensors detect）。evaluate 评估；expose 暴露。",
-              },
-              {
-                o: ["retire", "leave", "withdraw", "retreat"],
-                a: 1,
-                e: "人「离开」时系统再自动关闭。retire 退休；withdraw / retreat 撤退。",
-              },
-              {
-                o: ["during", "in", "through", "between"],
-                a: 2,
-                e: "work through「通过……来运作」：传感器通过中央家庭电脑工作。",
-              },
-              {
-                o: ["displeasing", "unpleasant", "faulty", "mistaken"],
-                a: 2,
-                e: "faulty「有故障的」：探测出有故障的电器、插头或开关，与后文「需要维修」呼应。unpleasant 令人不快的（修饰物不搭）。",
-              },
-              {
-                o: ["depart", "isolate", "divide", "break"],
-                a: 1,
-                e: "isolate「隔离」：把它们隔离开以免伤人。depart 离开；divide 划分；break 打破。",
-              },
-              {
-                o: ["warn", "tell", "persuade", "assure"],
-                a: 0,
-                e: "warn sb that...「提醒/警告某人」。persuade 说服；assure 保证，均不合语境。",
-              },
-              {
-                o: ["mend", "reference", "separation", "repair"],
-                a: 3,
-                e: "need repair「需要修理」（名词）。句意：然后提醒你它们需要维修。reference 参考；separation 分离。",
-              },
-              {
-                o: ["will", "should", "shall", "can"],
-                a: 1,
-                e: "should the sensors detect... = if the sensors detect...（省略 if 的条件句倒装）：万一传感器探测到闯入者，电脑就会报警。",
-              },
-              {
-                o: ["unless", "if", "when", "because"],
-                a: 3,
-                e: "因果关系：这事不难，因为（because）门上的锁将是电子的，后文正是解释原因。",
-              },
-              {
-                o: ["inside", "outside", "outstanding", "obvious"],
-                a: 1,
-                e: "outside doors「外门」：用卡打开的自然是外面的门。outstanding 杰出的；obvious 明显的（形近干扰）。",
-              },
-              {
-                o: ["personal", "personnel", "particular", "general"],
-                a: 0,
-                e: "personal card「个人卡」。personnel 是名词「人事/员工」，particular 特定的，general 通用的。",
-              },
-              {
-                o: ["hiring", "buying", "renewing", "shopping"],
-                a: 3,
-                e: "「就是你购物时用的那张卡」：card 与 shopping 搭配（银行卡场景）。",
-              },
-              {
-                o: ["realized", "adapted", "known", "informed"],
-                a: 2,
-                e: "a number known only to you「只有你知道的号码」，known 过去分词作后置定语（be known to sb）。",
-              },
-              {
-                o: ["more", "much", "many", "fewer"],
-                a: 0,
-                e: "句中有 than，用比较级 more...than：电脑将不只是「消防员+警察」式的仆人。",
-              },
-              {
-                o: [
-                  "achievements",
-                  "announcements",
-                  "improvement",
-                  "entertainment",
-                ],
-                a: 3,
-                e: "上句说它是 entertainer（提供娱乐者）→ 大部分娱乐（entertainment）将直接进入你家。",
-              },
-              {
-                o: ["only", "right", "correctly", "fast"],
-                a: 1,
-                e: "come right into your home「直接进入你家」，right 作副词强调「直接、正好」。",
-              },
-              {
-                o: ["but", "or", "other", "then"],
-                a: 0,
-                e: "转折关系：现在也是如此，但（but）到2040年「娱乐」的含义会更多。",
-              },
-              {
-                o: ["intend", "understand", "mean", "program"],
-                a: 2,
-                e: "mean much more「意味着更多」。",
-              },
-              {
-                o: ["part", "place", "step", "time"],
-                a: 0,
-                e: "take part (in)「参与」，与后半句 rather than just watching「而不是仅仅观看」相对：你可以主动参与。",
-              },
-            ],
-          },
-          reading: [
-            {
-              passage:
-                "I don't often lose things and I'm especially careful with money, so I was quite surprised when I reached for my wallet and it wasn't there. At first, I thought it was possible that I could have left it at home. Then I remembered taking it out to pay the taxi, so I knew I had it with me just before I walked into the restaurant. I wondered if it was possible that it could have slipped out of my pocket while I was eating dinner. Thinking about the possibility, I turned and walked back to the table where I had been sitting. Unfortunately, there were several people sitting at the table at that time, so I had the waiter go over to the table to see if my wallet was on the floor. While the waiter was looking for it, the manager of the restaurant came up to me and asked me if anything was wrong. I didn't want to get a lot of people involved in the problem, but I knew I had to get the wallet back. I told the manager what had happened. He had me describe the wallet to him, and then he insisted that I report the missing wallet to the police. I told him that I had an appointment with my doctor in just a few minutes. I explained to him that my biggest worry at the moment was how I was going to pay the check. He told me not to worry about that. He asked me to write down my name and address, and he said he would send me a bill.",
-              qs: [
-                {
-                  q: "According to the passage, we know the writer ____ .",
-                  o: [
-                    "seldom loses things",
-                    "very often loses things",
-                    "loses things once in a while",
-                    "never loses things",
-                  ],
-                  a: 0,
-                  e: "首句 I don't often lose things（我不常丢东西）= seldom loses things。",
-                },
-                {
-                  q: "That day the writer found ____ .",
-                  o: [
-                    "he had lost his wallet",
-                    "he had left his wallet at home",
-                    "his wallet was stolen by a thief",
-                    "his wallet was lying under the table",
-                  ],
-                  a: 0,
-                  e: "伸手去拿钱包却发现不在 → 发现钱包丢了。原文排除了落在家（B），也没说是被偷（C），更没找到（D）。",
-                },
-                {
-                  q: "Why was the writer so sure he had brought his wallet with him?",
-                  o: [
-                    "He remembered not having left it at home.",
-                    "He believed his own memory.",
-                    "He always felt his pocket for the wallet before he left home.",
-                    "He had taken it out to pay his taxi-driver.",
-                  ],
-                  a: 3,
-                  e: "原文 remembered taking it out to pay the taxi：付出租车费时还掏出过钱包，说明钱包随身带着。",
-                },
-                {
-                  q: "According to the passage, the writer most probably lost his wallet when ____ .",
-                  o: [
-                    "he took it out to pay his taxi",
-                    "he walked into the restaurant",
-                    "he was eating dinner",
-                    "he was ordering his dish",
-                  ],
-                  a: 2,
-                  e: "原文 wondered if it could have slipped out of my pocket while I was eating dinner：最可能是吃晚饭时从口袋里滑出去了。",
-                },
-              ],
-            },
-            {
-              passage:
-                "Playing video games can be a fun way to unwind or spend time with friends. In schools, teachers use games like Minecraft to encourage teamwork and critical thinking. But for some players, gaming has become an unhealthy habit. Late at night, they are glued to a screen. Schoolwork suffers. The video-game world seems a friendlier place than the real one.\nMental health experts have taken notice. In June, the World Health Organization (WHO) added gaming disorder to its list of diseases and health conditions. A person may have the disorder if gaming has damaged his or her relationships with family and friends, and if it has affected his or her daily activities.\nNot all experts agree that excessive gaming should be called a disorder. They say people hooked on video games may be suffering from other mental health problems that should be treated first. Others think WHO made the right call. Psychiatrist Clifford Sussman treats gaming addiction. He says kids often have feelings of anxiety and loneliness. They get angry when a parent asks them to stop playing video games.\nWhat makes video games addictive? Playing excites the brain's reward center. After a while, the brain becomes numb to pleasure. You feel bored without a controller in your hand. So you play even more. One key to healthy gaming is to track how long you play. Sussman recommends taking at least an hour-long break after every hour of play. That gives the brain time to recover.",
-              qs: [
-                {
-                  q: "Which of the following is the best title for the passage?",
-                  o: [
-                    "Mental Health Problems",
-                    "Excessive Gaming",
-                    "Unhealthy Habits",
-                    "Teamwork Training",
-                  ],
-                  a: 1,
-                  e: "主旨题。全文围绕游戏成瘾（gaming disorder）展开：现象、WHO 将其列入疾病、专家观点、如何健康游戏。B 项 Excessive Gaming（过度游戏）最能概括。",
-                },
-                {
-                  q: "The word 'unwind' in Paragraph 1 is closest in meaning to ____ .",
-                  o: ["match", "meet", "retreat", "relax"],
-                  a: 3,
-                  e: "词义猜测：第一句说打游戏是一种有趣的放松、消遣方式 → unwind = relax（放松）。",
-                },
-                {
-                  q: "Clifford Sussman's attitude to WHO's recognition of excessive gaming as a disorder is ____ .",
-                  o: ["supportive", "doubtful", "neutral", "critical"],
-                  a: 0,
-                  e: "态度题。前文说 Others think WHO made the right call（正确决定），接着介绍的 Sussman 医生专门治疗游戏成瘾并分析成因，属于支持的一方（supportive）。",
-                },
-                {
-                  q: "Sussman advises game players to ____ .",
-                  o: [
-                    "quit playing video games",
-                    "play sports instead of video games",
-                    "go to the hospital to get medical treatment",
-                    "rest for at least an hour after every hour of play",
-                  ],
-                  a: 3,
-                  e: "细节题：Sussman recommends taking at least an hour-long break after every hour of play——每玩1小时至少休息1小时。",
-                },
-              ],
-            },
-          ],
-          trans: [
-            {
-              en: "Let children learn to judge their own work.",
-              zh: "让孩子学会判断他们自己的工作。",
-              e: "let sb do sth 让某人做某事；judge 判断。",
-            },
-            {
-              en: "It is well-known that the potential of the human brain is limitless.",
-              zh: "众所周知，人脑的潜力是无限的。",
-              e: "It is well-known that...「众所周知……」，that 从句是真正主语；potential 潜力；limitless 无限的。",
-            },
-            {
-              en: "On the positive side, they are often full of zest for life.",
-              zh: "从积极的方面看，他们时常对生活充满热情。",
-              e: "on the positive side 从积极方面看；zest for life 对生活的热情（zest = 热情）。",
-            },
-            {
-              en: "As far as housing is concerned, he prefers the country to the city.",
-              zh: "就住房状况而言，他更喜欢农村而不是城市。",
-              e: "as far as ... is concerned 就……而言；prefer A to B 比起 B 更喜欢 A。",
-            },
-            {
-              en: "People realize it more and more important to learn to adapt to the surrounding environment.",
-              zh: "人们认识到学会适应周围环境变得越来越重要。",
-              e: "more and more 越来越；adapt to 适应；the surrounding environment 周围环境。",
-            },
-          ],
-        },
-        {
-          name: "复习资料二",
-          p1: [
-            {
-              q: "We believe our football players will try ____ best to win the game.",
-              o: ["them", "they", "their", "themselves"],
-              a: 2,
-              e: "try one's best「尽某人最大努力」，one's 与主语 our football players 对应 → their。",
-            },
-            {
-              q: "No one doubts ____ he is the best leader in the company.",
-              o: ["whether", "if", "what", "that"],
-              a: 3,
-              e: "doubt 用于否定句（No one doubts）时，后面接 that 引导的从句；肯定句 doubt 才用 whether/if。",
-            },
-            {
-              q: "The banker will explain the terms of loan to you ____ detail.",
-              o: ["on", "in", "with", "out of"],
-              a: 1,
-              e: "固定搭配 in detail「详细地」。（此题与资料一第3题完全相同，考试重复率高的信号！）",
-            },
-            {
-              q: "Talking to foreigners is fun if you ____ the right time and place.",
-              o: ["locate", "consider", "choose", "decide"],
-              a: 2,
-              e: "句意：如果选对了时间和场合，和外国人交谈很有趣 → choose（选择）。",
-            },
-            {
-              q: "To be ____ is to state or express things in an open and honest way.",
-              o: ["frank", "guilty", "smart", "upset"],
-              a: 0,
-              e: "词义题：空格后的解释 open and honest（坦率诚实）→ frank。guilty 有罪的；upset 难过的。",
-            },
-            {
-              q: "Jane ____ French very fluently though she was born and grew up in Australia.",
-              o: ["talks", "says", "speaks", "tells"],
-              a: 2,
-              e: "「说某种语言」用 speak。talk 谈话（不及物）；say 说（具体内容）；tell 告诉。",
-            },
-            {
-              q: "Hurry up! We have ____ to spare.",
-              o: ["a little time", "a few time", "few time", "little time"],
-              a: 3,
-              e: "time 不可数，排除 a few / few；Hurry up!（快点！）说明「几乎没有时间了」→ little time（几乎没有）。a little time 是「还有一些时间」，与催促矛盾。",
-            },
-            {
-              q: "It's time ____ ready for work.",
-              o: ["getting", "to get", "get", "got"],
-              a: 1,
-              e: "It's time to do sth「该做某事了」。",
-            },
-            {
-              q: "For both sides' ____ , the contract placed clear obligations on this cooperation.",
-              o: ["beneficent", "beneficial", "benefit", "benefactors"],
-              a: 2,
-              e: "名词所有格 both sides' 后接名词 benefit（利益）。beneficent / beneficial 是形容词；benefactors 捐助者。",
-            },
-            {
-              q: "Jasper is quite ____ with Central Television. He worked there for 25 years.",
-              o: ["agreed", "familiar", "consistent", "allied"],
-              a: 1,
-              e: "be familiar with「熟悉」：他在那里工作了25年，自然很熟悉。consistent with 与……一致；allied with 与……结盟。",
-            },
-            {
-              q: "____ the fact that the area had been hit by a severe drought, a fairly good harvest was gathered in.",
-              o: ["In spite", "Despite", "In spite that", "Despite of"],
-              a: 1,
-              e: "despite 是介词，后面直接接名词 the fact。in spite 需加 of 才能接名词；despite of 是错误形式。",
-            },
-            {
-              q: "The population of Shanghai is about three times as large as ____ of Nanjing.",
-              o: ["one", "that", "it", "this"],
-              a: 1,
-              e: "that 指代前面的 the population，避免重复：上海人口约是南京人口的三倍。",
-            },
-            {
-              q: "The three hours I spent in the school library ____ my old passion for reading.",
-              o: [
-                "brought about",
-                "brought over",
-                "brought up",
-                "brought back",
-              ],
-              a: 3,
-              e: "bring back「唤回」旧日的阅读热情。（此题与资料一第18题完全相同。）",
-            },
-            {
-              q: "Don't ____ to let me know if there is anything I can do for you.",
-              o: ["reject", "prevent", "hesitate", "refuse"],
-              a: 2,
-              e: "hesitate to do sth「别犹豫」。（此题与资料一第8题完全相同。）",
-            },
-            {
-              q: "The flowers in the garden need ____ badly; otherwise they will dry up soon.",
-              o: ["watering", "to water", "watered", "to have watered"],
-              a: 0,
-              e: "need doing = need to be done，主动形式表被动：「花需要（被）浇水」。类似用法的还有 want / require doing。",
-            },
-            {
-              q: "____ the English examination, I would have gone to the exhibition last Sunday.",
-              o: ["In spite of", "But for", "Because of", "As for"],
-              a: 1,
-              e: "But for「要不是」，表示对过去的虚拟：要不是英语考试，我上周日就去看展览了。",
-            },
-            {
-              q: "Who is responsible ____ the arrangements?",
-              o: ["for make", "to make", "to making", "for making"],
-              a: 3,
-              e: "be responsible for 中 for 是介词，后接动名词 making。",
-            },
-            {
-              q: "The paint is still wet, ____ !",
-              o: [
-                "Be not sure to touch it",
-                "Be sure not to touch it",
-                "Be sure to not touch it",
-                "Don't be sure to touch it",
-              ],
-              a: 1,
-              e: "祈使句的否定式：Be sure not to do（千万别碰）。not 的位置在 to 之前。",
-            },
-            {
-              q: "____ , you must show your ticket to go into the cinema.",
-              o: [
-                "No matter whoever you are",
-                "Whoever you are",
-                "Whomever you are",
-                "No matter who are you",
-              ],
-              a: 1,
-              e: "「无论你是谁」用 Whoever you are 作让步状语。A 项 no matter 与 whoever 重复；C 项 whomever 是宾格；D 项语序错误。",
-            },
-            {
-              q: "You ____ me, because I didn't say that.",
-              o: [
-                "must have misunderstood",
-                "must misunderstand",
-                "must be misunderstood",
-                "had to misunderstand",
-              ],
-              a: 0,
-              e: "must have done 对过去发生的事情的肯定推测「一定做过」：我没那样说过 → 你一定是误解我了。",
-            },
-          ],
-          cloze: {
-            passage:
-              'Friend is better than fortune. Friend is worse than poison in some {21}. The above two statements are opposite and seem to be {22}, but they can be explained {23}: The latter {24} all evil friends who {25} us astray. The former {26} all good friends who drive us towards good.\nMy {27} friend is of course a good friend {28} goodness is shown {29}. He has no bad {30}, as smoking and drinking. He lives frugally. He studies diligently {31} waste his golden time. {32} he {33} his parents and loves his brothers; at school he respects his teachers and {34} his schoolmates. He treats those truly who are {35} him. He never speaks of others\' evils {36} boasts of his own merits. {37}, he has all the good characters better than {38}. I can follow him as a model. By his precepts I am {39} the danger of doing a wrong action. By his help I {40} all difficulties.\nIndeed, if I have such a person as my friend, I shall never feel difficult and I shall never know the existence of the word "failure".',
-            qs: [
-              {
-                o: ["conditions", "cases", "times", "occasions"],
-                a: 1,
-                e: "in some cases「在某些情况下」，固定搭配。conditions 条件；occasions 常与 on 搭配。",
-              },
-              {
-                o: [
-                  "unreasonable",
-                  "unspeakable",
-                  "unthinkable",
-                  "unseasonable",
-                ],
-                a: 0,
-                e: "unreasonable「不合理的」：这两句话看似矛盾、不合常理，但其实可以解释。unspeakable 无法言说的；unseasonable 不合时宜的。",
-              },
-              {
-                o: ["in follow", "in following", "as follows", "as following"],
-                a: 2,
-                e: "as follows「如下」，固定表达：可以解释如下。",
-              },
-              {
-                o: ["complies", "implies", "complied with", "complied to"],
-                a: 1,
-                e: "imply「指的是、意味着」：后者（第二句话）指的是把我们引入歧途的坏朋友。comply 遵守（与 with 连用）。",
-              },
-              {
-                o: ["tempt", "lead", "push", "force"],
-                a: 1,
-                e: "lead sb astray「把某人引入歧途」，固定搭配。",
-              },
-              {
-                o: ["relates", "refers", "refers to", "directs to"],
-                a: 2,
-                e: "refer to「指的是」：前者指的是促使我们向善的好朋友。relate to 与……有关。",
-              },
-              {
-                o: ["fine", "perfect", "ideal", "new"],
-                a: 2,
-                e: "my ideal friend「我的理想朋友」，与下文「集所有好品格于一身」呼应。",
-              },
-              {
-                o: ["one's", "who's", "whose", "his"],
-                a: 2,
-                e: "定语从句：空格后是名词 goodness，指「他的优点」→ 用 whose。who's = who is，不合语法。",
-              },
-              {
-                o: ["down", "up", "below", "under"],
-                a: 2,
-                e: "shown below「在下文展示出来」，below 作副词。",
-              },
-              {
-                o: ["likeness", "likes", "likelihood", "liking"],
-                a: 3,
-                e: "like 作名词复数 likes = 喜好、爱好：没有吸烟喝酒等坏嗜好。liking 也是「喜好」但常用 have a liking for。",
-              },
-              {
-                o: [
-                  "so as to not",
-                  "in order to not",
-                  "so as not to",
-                  "in order that",
-                ],
-                a: 2,
-                e: "「以免浪费黄金时间」：so as not to / in order not to 才是正确的否定形式，A、B 的 not 位置都错了；D 项后接从句。",
-              },
-              {
-                o: ["In the home", "At the home", "In home", "At home"],
-                a: 3,
-                e: "at home「在家」，固定搭配，home 前不加冠词。",
-              },
-              {
-                o: ["admires", "is interested in", "in fond of", "honors"],
-                a: 3,
-                e: "honor「尊敬」：在家尊敬父母。B 项缺 in；C 项应为 is fond of（拼写陷阱）。",
-              },
-              {
-                o: [
-                  "sympathizes with",
-                  "sympathizes about",
-                  "sympathizes to",
-                  "sympathizes on",
-                ],
-                a: 0,
-                e: "sympathize with「同情、体谅」，与同学搭配用 with。",
-              },
-              {
-                o: ["real to", "true with", "true to", "true on"],
-                a: 2,
-                e: "be true to sb「对某人真诚」：真诚对待那些真诚待他的人。",
-              },
-              {
-                o: ["not", "nor", "or", "but"],
-                a: 1,
-                e: "never...nor...「从不……也不……」：从不讲别人坏话，也不夸耀自己的长处。",
-              },
-              {
-                o: ["Least of all", "In all", "In words", "In a word"],
-                a: 3,
-                e: "in a word「总之」，用于总结：总之，他集所有好品格于一身。in all 总共。",
-              },
-              {
-                o: ["mine", "our", "my", "ours"],
-                a: 0,
-                e: "比较对象要对等：his good characters better than mine（比我 的品格）。mine = my characters。",
-              },
-              {
-                o: ["award of", "awaring", "aware of", "aware with"],
-                a: 2,
-                e: "be aware of「意识到、察觉到」：通过他的教导，我能察觉做错事的危险。award 奖品（形近词）。",
-              },
-              {
-                o: [
-                  "pardon from",
-                  "am free from",
-                  "excuse from",
-                  "am derived from",
-                ],
-                a: 1,
-                e: "be free from「免于、摆脱」：在他的帮助下，我能摆脱一切困难。",
-              },
-            ],
-          },
-          reading: [
-            {
-              passage:
-                "To us it seems so natural to put up an umbrella to keep the water off when it rains. But actually the umbrella was not invented as protection against rain. It was first used as a shade against the sun.\nNobody knows who first invented it, but the umbrella was used in very ancient times. Probably the first to use it were the Chinese, way back in the eleventh century B.C...\nWe know that the umbrella was also used in ancient Egypt and Babylon as a sunshade. And there was a strange thing connected with its use; it became a symbol of honor and authority. In the Far East in ancient times, the umbrella was allowed to be used only by royal people or by those in high office.\nIn Europe, the Greeks were the first to use the umbrella as a sunshade. And the umbrella was in common use in ancient Greece. But it is believed that the first persons in Europe to use the umbrellas as protection against the rain were the ancient Romans.\nDuring the Middle Ages, the use of the umbrella practically disappeared. Then it appeared again in Italy in 16th century. And again it became a symbol of power and authority.\nUmbrellas have not changed much in style during all this time, though they have become much lighter in weight. It wasn't until the twentieth century that women's umbrellas began to be made in a variety of colors.",
-              qs: [
-                {
-                  q: "The first use of umbrella was ____ .",
-                  o: [
-                    "protection against rain",
-                    "a shade against the sun",
-                    "a symbol of power",
-                    "a symbol of honor",
-                  ],
-                  a: 1,
-                  e: "首段末句：It was first used as a shade against the sun（最初是用来遮阳的）。",
-                },
-                {
-                  q: "____ were regarded as the people who first used umbrellas.",
-                  o: ["Romans", "Greeks", "Chinese", "Europeans"],
-                  a: 2,
-                  e: "第二段：Probably the first to use it were the Chinese（很可能是中国人最早使用，可追溯到公元前11世纪）。",
-                },
-                {
-                  q: "The umbrella was used only by royal people or those in high office ____ .",
-                  o: [
-                    "in Europe in the eighteenth century",
-                    "in ancient Egypt and Babylon",
-                    "in the Far East in ancient times",
-                    "during the Middle Ages",
-                  ],
-                  a: 2,
-                  e: "第三段末句：在古代远东（In the Far East in ancient times），伞只允许皇室或高官使用。",
-                },
-                {
-                  q: "Which of the following may be the best title for the passage?",
-                  o: [
-                    "When Was the Umbrella Invented",
-                    "The Role of Umbrella in History",
-                    "The Colors and Shapes of Umbrella",
-                    "Who Needed Umbrella First",
-                  ],
-                  a: 1,
-                  e: "主旨题：全文按时间线讲雨伞在历史上的角色演变（遮阳 → 权力象征 → 挡雨），B 项最能概括。",
-                },
-              ],
-            },
-            {
-              passage:
-                'The first year of school in America, known as kindergarten, usually begins between the ages of five and six. Among rich countries such a late start is very strange. President Obama believes it is an economic and social problem; his education secretary goes as far as to say that it is "morally wrong". This statement has some support, as it is clear from research into vocabulary that youngsters from poor families enter kindergarten well behind those from rich families — a disadvantage that usually lasts a lifetime. Children from households on welfare knew 525 words by the age of three, while the children of professionals had mastered 1,116.\nPre-school can help close this gap. So in a speech last month, Mr. Obama called for a partnership between the federal government and the states to expand it to every American child. It later became known that "every" meant those who come from families with incomes of up to 200% above the poverty line — equal to an income of $47,000 for a family of four.\nSome studies also follow the effects of early learning over lifetimes, such as its effect on crime rates and other factors that may eventually burden society. Critics have singled out a government scheme called Head Start, created in 1965, which provides poor households with a range of services including school-based early education.',
-              qs: [
-                {
-                  q: "Kindergarten in rich countries other than America usually begins at the age of ____ .",
-                  o: ["eight", "seven", "six", "four"],
-                  a: 3,
-                  e: "推理题：美国5-6岁入学「在发达国家中算是很晚的」→ 其他国家入学更早，四个选项中只有 four 早于五岁。",
-                },
-                {
-                  q: "According to the passage, which of the following is TRUE?",
-                  o: [
-                    "Poor pre-school kids have a larger vocabulary than rich kids.",
-                    "President Obama believes that early education can solve all economic and social problems.",
-                    "Rich pre-school kids have a richer vocabulary than poor kids.",
-                    "President Obama's education secretary thinks it is morally wrong to let kids start kindergarten early.",
-                  ],
-                  a: 2,
-                  e: "细节题：贫困家庭孩子3岁认识525个词，专业人士家庭的孩子掌握了1116个 → 富有家庭的孩子词汇量更大。",
-                },
-                {
-                  q: "The phrase 'single out' in the last paragraph means ____ .",
-                  o: ["choose", "think about", "count", "depend on"],
-                  a: 0,
-                  e: "词义猜测：single out「挑选出」——批评者们挑选出 Head Start 这一政府项目（来批评）。",
-                },
-                {
-                  q: "Which of the following is an appropriate title for this passage?",
-                  o: [
-                    "Secondary Education",
-                    "Pre-school Education",
-                    "Poor Kids' Education",
-                    "Rich Kids' Education",
-                  ],
-                  a: 1,
-                  e: "主旨题：全文讨论学前教育（kindergarten / pre-school）的重要性与普及，B 项最全面。",
-                },
-              ],
-            },
-          ],
-          trans: [
-            {
-              en: "We will send you the book as soon as possible.",
-              zh: "我们将尽快把这本书寄给你们。",
-              e: "as soon as possible「尽快」，固定短语。",
-            },
-            {
-              en: "Believe in yourself, and you'll win the speech contest.",
-              zh: "只要相信你自己，你就会赢得演讲比赛。",
-              e: "「祈使句 + and + 陈述句」结构，祈使句相当于条件句；believe in oneself 相信自己。",
-            },
-            {
-              en: "It is of great importance for college students to take part in social practice.",
-              zh: "大学生参加社会实践是很重要的。",
-              e: "be of great importance = very important；take part in 参加；social practice 社会实践。",
-            },
-            {
-              en: "If it hadn't been for your help, I couldn't have made such great progress in English.",
-              zh: "要是没有你的帮助，我就不可能在英语方面取得这样大的进步。",
-              e: "对过去的虚拟语气：if + had done，主句 couldn't have done；make progress in 在……取得进步。",
-            },
-            {
-              en: "We strive for perfection but sometimes have to accept something less than perfect.",
-              zh: "我们力求完美，但有时不得不接受不那么完美的事。",
-              e: "strive for 力求、奋斗争取；have to 不得不；less than perfect 不那么完美。",
-            },
-          ],
-        },
-        {
-          name: "复习资料三",
-          p1: [
-            {
-              q: "My friend told me the house I would rent was small and contained too ____ .",
-              o: [
-                "much furniture",
-                "much furnitures",
-                "many furniture",
-                "many furnitures",
-              ],
-              a: 0,
-              e: "furniture（家具）是不可数名词，没有复数，用 too much 修饰。",
-            },
-            {
-              q: "Someone is knocking at the door, but whom can ____ be?",
-              o: ["one", "he", "it", "she"],
-              a: 2,
-              e: "敲门时不知对方是谁，习惯上用 it 指代身份不明的人：whom can it be?",
-            },
-            {
-              q: "—What about having a picnic at the beach this Saturday? —It ____ good.",
-              o: ["smells", "feels", "sounds", "looks"],
-              a: 2,
-              e: "对提议的评价「听起来不错」用 sounds（听起来）。smell 闻起来；feel 感觉起来；look 看起来。",
-            },
-            {
-              q: "In the past 40 years of reform and opening up, China ____ great progress.",
-              o: ["have made", "has made", "had made", "having made"],
-              a: 1,
-              e: "in the past 40 years（在过去的40年里）是现在完成时的标志；China 单数 → has made。",
-            },
-            {
-              q: "Our companies need to employ ____ workers than before.",
-              o: [
-                "as excellent",
-                "excellent",
-                "most excellent",
-                "more excellent",
-              ],
-              a: 3,
-              e: "句末有 than before → 用比较级 more excellent。",
-            },
-            {
-              q: "The children ____ aloud when the teacher came in.",
-              o: ["was reading", "were reading", "read", "have read"],
-              a: 1,
-              e: "「老师进来时孩子们正在朗读」→ 过去进行时；children 是复数 → were reading。",
-            },
-            {
-              q: "Our teaching building ____ next month.",
-              o: [
-                "will be completed",
-                "completes",
-                "has completed",
-                "was completed",
-              ],
-              a: 0,
-              e: "next month 表将来；教学楼是「被完工」→ 一般将来时的被动语态 will be completed。",
-            },
-            {
-              q: "Johnson will phone his girlfriend as soon as he ____ at the airport.",
-              o: ["will arrive", "is arriving", "arrives", "arrived"],
-              a: 2,
-              e: "时间状语从句（as soon as 一……就……）中用一般现在时代替将来时 → arrives。",
-            },
-            {
-              q: "There is ____ letter 'h' in the word 'hour', but ____ 'h' doesn't make a sound.",
-              o: ["a; a", "a; the", "the; an", "an; the"],
-              a: 3,
-              e: "字母 h 发音 /eɪtʃ/ 以元音音素开头 → 用 an；第二次提到同一个 h 用定冠词 the。",
-            },
-            {
-              q: "John spent a lot of time ____ to his friends why he came late.",
-              o: ["explain", "explained", "to explain", "explaining"],
-              a: 3,
-              e: "spend time (in) doing sth 花时间做某事。",
-            },
-            {
-              q: "The old man came upstairs ____ a stick for support.",
-              o: ["held", "holding", "being holding", "was holding"],
-              a: 1,
-              e: "现在分词 holding 作伴随状语：老人拄着拐杖上楼（主动、同时发生）。",
-            },
-            {
-              q: "On our website you will find a list of problems ____ at our next week's meeting.",
-              o: ["discuss", "discussing", "to be discussed", "discussed"],
-              a: 2,
-              e: "「下周会议将要讨论的问题」→ 不定式表将来 + 被动：to be discussed。",
-            },
-            {
-              q: "Whether you come ____ not will be up to you.",
-              o: ["so", "and", "or", "but"],
-              a: 2,
-              e: "whether...or not「是否」，固定搭配。",
-            },
-            {
-              q: "Most of the goods ____ in this store are made by our company.",
-              o: ["sell", "sold", "selling", "be sold"],
-              a: 1,
-              e: "goods 与 sell 是被动关系（被出售）→ 过去分词 sold 作后置定语。",
-            },
-            {
-              q: "Our teacher suggests that we ____ in the classroom earlier.",
-              o: ["should be", "shall be", "are", "were"],
-              a: 0,
-              e: "suggest 表示「建议」时，宾语从句用虚拟语气：(should +) 动词原形 → should be。",
-            },
-            {
-              q: "____ you want some samples of our products, you might contact our sales manager.",
-              o: ["While", "If", "Until", "Although"],
-              a: 1,
-              e: "条件关系：如果你想要我们产品的样品，可以联系销售经理 → If。",
-            },
-            {
-              q: "It was such a strong storm ____ it caused great damage to this area.",
-              o: ["because", "as", "since", "that"],
-              a: 3,
-              e: "such...that「如此……以至于」：暴风雨如此猛烈，给该地区造成了巨大损失。",
-            },
-            {
-              q: "No sooner had he jumped out of the car ____ it blew up.",
-              o: ["than", "while", "when", "as"],
-              a: 0,
-              e: "no sooner...than「一……就……」，且 no sooner 位于句首时前半句用过去完成时倒装。",
-            },
-            {
-              q: "It was not until last month ____ the machine we ordered arrived.",
-              o: ["which", "what", "that", "where"],
-              a: 2,
-              e: "强调句型 It was not until...that...「直到上个月我们订的机器才到」。",
-            },
-            {
-              q: "Go to the evening party with me tonight, ____ ?",
-              o: ["can you", "don't you", "do you", "will you"],
-              a: 3,
-              e: "祈使句的反义疑问句用 will you：今晚陪我去的晚会，好吗？",
-            },
-          ],
-          cloze: {
-            passage:
-              "It's been five years since I came to America. The year before I arrived, every weekend I was woken up by \"Spring River in the Flower Moon Night\", {21} by my mother on a guzheng. My mom was always enchanted by the beauty of Chinese traditional music, {22} she never had the chance to learn a {23}. In 2009, she got a guzheng from a friend and has been playing and performing ever since. Sometimes when I {24} her, I search for the songs she used to play on the Internet. I {25} expected to hear them here in Boston. Earlier this year, as I {26} a new apartment, I met Zhantao Lin, the director of the Boston Chinese Musicians Association. At Lin's house, I heard the {27} of the erhu. Lin later {28} me to his music team and I heard them rehearse for a {29} this year. It was beautiful and powerful and it {30} brought me back to my hometown in China. {31} is also part of Lin's daily routine. Besides performing, he passed on his love of the erhu to his {32}. I went to one of Lin's classes and met 9-year-old London Turk. I asked him {33} he chose to learn the erhu. \"It's much {34} to learn than the violin,\" he said. Perhaps Turk hasn't really started to {35} the beauty of the erhu, but his mother has always loved the instrument. \"There are so many beautiful things in Chinese {36}, the music, the language, and the art. So we just try our best to let him have a {37} to explore it,\" she said. I {38} my mom for giving me a chance to immerse myself in the Chinese musical world. The music makes me feel relaxed. It can also {39} me of my homesickness. If you listen to one piece, you will {40} its uniqueness, power, and beauty.",
-            qs: [
-              {
-                o: ["directed", "played", "written", "invented"],
-                a: 1,
-                e: "「妈妈用古筝弹奏的《春江花月夜》」：played by my mother 过去分词作后置定语（曲子是被弹奏的）。",
-              },
-              {
-                o: ["but", "and", "or", "so"],
-                a: 0,
-                e: "转折：妈妈一直着迷于中国传统音乐，但（but）从来没有机会学乐器。",
-              },
-              {
-                o: ["instrument", "trade", "language", "trick"],
-                a: 0,
-                e: "learn an instrument「学一门乐器」，与后文的 guzheng（古筝）、erhu（二胡）呼应。",
-              },
-              {
-                o: ["mention", "chase", "miss", "call"],
-                a: 2,
-                e: "想「想念」妈妈的时候，就在网上搜索她以前常弹的曲子 → miss。",
-              },
-              {
-                o: ["only", "still", "already", "never"],
-                a: 3,
-                e: "我从「未」想过会在波士顿听到这些曲子 → never expected。",
-              },
-              {
-                o: ["looked after", "looked at", "looked for", "looked in"],
-                a: 2,
-                e: "look for a new apartment「找新公寓」。look after 照顾；look at 看。",
-              },
-              {
-                o: ["story", "sound", "name", "cry"],
-                a: 1,
-                e: "the sound of the erhu「二胡的声音」：在林家里听到了二胡声。",
-              },
-              {
-                o: ["followed", "recommended", "guided", "introduced"],
-                a: 3,
-                e: "introduce sb to...「把某人介绍进……」：林后来把我介绍进他的乐队。",
-              },
-              {
-                o: ["performance", "competition", "game", "conference"],
-                a: 0,
-                e: "排练（rehearse）是为了今年的演出 → performance。",
-              },
-              {
-                o: ["secretly", "recently", "nearly", "suddenly"],
-                a: 3,
-                e: "音乐美妙而有力，「突然」把我带回了中国的老家 → suddenly。",
-              },
-              {
-                o: ["Reading", "Teaching", "Composing", "Exercising"],
-                a: 1,
-                e: "上句 Besides performing（除了演出），教学也是他日常的一部分；后文「我去上了他的一节课」呼应 → Teaching。",
-              },
-              {
-                o: ["workmates", "friends", "students", "parents"],
-                a: 2,
-                e: "把对二胡的热爱传给「学生」：下文9岁的 London Turk 就是他班上的学生。",
-              },
-              {
-                o: ["how", "where", "why", "when"],
-                a: 2,
-                e: "我问他「为什么」选择学二胡 → why，他的回答正是在说原因。",
-              },
-              {
-                o: ["easier", "longer", "safer", "smarter"],
-                a: 0,
-                e: "句末有 than the violin → 用比较级 easier：二胡比小提琴好学。",
-              },
-              {
-                o: ["consider", "enjoy", "ignore", "expect"],
-                a: 1,
-                e: "或许 Turk 还没有真正开始「欣赏」二胡之美 → enjoy。",
-              },
-              {
-                o: ["medicine", "economy", "literature", "culture"],
-                a: 3,
-                e: "中国文化中有这么多美好的东西：音乐、语言、艺术 → culture。",
-              },
-              {
-                o: ["chance", "place", "duty", "desire"],
-                a: 0,
-                e: "give him a chance to explore「给他一个探索的机会」。",
-              },
-              {
-                o: ["forgive", "blame", "thank", "beg"],
-                a: 2,
-                e: "thank my mom for...「感谢妈妈让我有机会沉浸在中国音乐世界里」。",
-              },
-              {
-                o: ["remind", "cure", "inform", "warn"],
-                a: 1,
-                e: "cure sb of sth「治好某人的……」：音乐还能治愈我的思乡之苦。",
-              },
-              {
-                o: ["explain", "ensure", "express", "experience"],
-                a: 3,
-                e: "你将「体验」到它的独特、力量与美 → experience。",
-              },
-            ],
-          },
-          reading: [
-            {
-              passage:
-                "I'm very thankful to the cat and it always makes me think of the time I was with him.\nFive years ago, when my father was dying, I travelled a thousand miles from home to be with him in his last days. I felt very sad and it was one of the most difficult and painful times in my life. After he passed away, I stayed alone in his flat. There were so many things to deal with. I was lonely and I hated the silence of the flat.\nBut one evening the silence was broken: I heard crying outside. I opened the door to find a little cat on the steps. He was thin and poor. He looked the way I felt. I brought him inside and gave him a can of fish. He ate it and then almost immediately fell asleep.\nThe next morning I checked with neighbors and learned that the cat had been left by his owner. His owner had moved out, so the little cat was there all alone, just like I was. As I walked back to the flat, I tried to work out what to do with him. Having something else to take care of seemed like the very last thing I needed. But as soon as I opened the flat door, he ran to me and jumped into my arms. It was clear from that moment that he didn't want to go anywhere. I started calling him Willis in order to remember my father's best friend.\nFrom then on, things grew easier. With Willis in my lap, time seemed to pass much faster. When the time finally came for me to return home, I had to decide what to do about Willis. There was absolutely no way I would leave without him.\nIt's been five years since my father died. Over the years, several people have said how nice it was of me to rescue the cat. But I know that we rescued each other. I may have given him a home but he gave me something greater.",
-              qs: [
-                {
-                  q: "The writer felt ____ after her father passed away.",
-                  o: ["happy", "lonely", "nervous", "relaxed"],
-                  a: 1,
-                  e: "细节题：父亲去世后 I was lonely and I hated the silence of the flat（孤独，讨厌公寓的寂静）。",
-                },
-                {
-                  q: "As soon as the writer saw the cat, she ____ .",
-                  o: [
-                    "had pity on him",
-                    "showed no interest in him",
-                    "felt very frightened",
-                    "felt angry with his crying",
-                  ],
-                  a: 0,
-                  e: "猫又瘦又可怜 He looked the way I felt，作者立刻把它抱进屋喂鱼 → 怜悯（had pity on him）。",
-                },
-                {
-                  q: "The cat rescued the writer by ____ .",
-                  o: [
-                    "telling her what real life was",
-                    "helping her tidy the flat every day",
-                    "helping her finish the tasks on time",
-                    "making her feel better in her hard times",
-                  ],
-                  a: 3,
-                  e: "结尾 we rescued each other：我给了它一个家，它给了我更宝贵的东西；有了它的陪伴时间过得更快 → 在艰难时期让我好受些。",
-                },
-                {
-                  q: "What's the best title for the passage?",
-                  o: [
-                    "A lovely cat",
-                    "My father and a cat",
-                    "What I got from a cat",
-                    "How to take care of a cat",
-                  ],
-                  a: 2,
-                  e: "主旨题：文章落点在「我们互相救赎」——我从猫那里得到了更宝贵的东西 → What I got from a cat。",
-                },
-              ],
-            },
-            {
-              passage:
-                "My friend Matt and I arrived at the Activity Centre on Friday evening. The accommodation wasn't wonderful, but we had everything we needed (beds, blankets, food), and we were pleased to be out of the city and in the fresh air.\nOn Saturday morning we met the other ten members of our group. Cameron had come along with two friends, Kevin and Simon, while sisters Carole and Lynn had come with Amanda. There were some other members I didn't know. We had come from different places and none of us knew the area.\nWe knew we were going to spend the weekend outdoors, but none of us was sure exactly how. Half of us went to the caves first. Climbing out was harder than going in, but after a good deal of pushing, we were out at last. Though we were covered with mud, we were pleased and excited by what we'd done.",
-              qs: [
-                {
-                  q: "The writer spent the Saturday morning ____ .",
-                  o: ["rock-climbing", "sleeping", "meeting friends", "caving"],
-                  a: 3,
-                  e: "细节题：Half of us went to the caves first（我们一半人先去岩洞探险）→ caving（洞穴探险）。",
-                },
-                {
-                  q: "There were ____ members in all in the writer's group.",
-                  o: ["6", "8", "10", "12"],
-                  a: 3,
-                  e: "数字题：Matt 和我（2人）+ the other ten members（其他10位成员）= 12人。",
-                },
-                {
-                  q: "The writer thought her weekend was ____ .",
-                  o: ["interesting", "relaxing", "frightening", "unpleasant"],
-                  a: 0,
-                  e: "推理题：though we were covered with mud, we were pleased and excited（虽然满身泥，但开心又兴奋）→ 有趣（interesting）。",
-                },
-                {
-                  q: "This passage mainly talks about ____ .",
-                  o: [
-                    "the writer's friends at the Activity Centre",
-                    "the writer's experience at the Activity Centre",
-                    "outdoor sports at the Activity Centre",
-                    "how to go rock-climbing and caving",
-                  ],
-                  a: 1,
-                  e: "主旨题：本文按时间顺序记叙作者在活动中心的经历 → B 项。",
-                },
-              ],
-            },
-          ],
-          trans: [
-            {
-              en: "It's very important for human beings to pay attention to ocean exploration.",
-              zh: "对人类来说，关注海洋探索是非常重要的。",
-              e: "It is + adj. + for sb to do sth 结构；pay attention to 关注。",
-            },
-            {
-              en: "Seeing English films can improve your English listening and speaking ability.",
-              zh: "看英语电影可以提高你的英语听说能力。",
-              e: "动名词短语 Seeing English films 作主语；listening and speaking ability 听说能力。",
-            },
-            {
-              en: "If excellent workers often get encouragement, they will work even harder.",
-              zh: "如果优秀的员工经常得到鼓励，他们会更加努力地工作。",
-              e: "if 条件句（主句用将来时，从句用一般现在时）；encouragement 鼓励。",
-            },
-            {
-              en: "Young people should be independent instead of depending on their parents.",
-              zh: "年轻人应该独立，而不是依赖父母。",
-              e: "instead of 而不是；be independent 独立；depend on 依赖。",
-            },
-            {
-              en: "The Chinese people will always support all those who love world peace.",
-              zh: "中国人民永远支持所有爱好世界和平的人们。",
-              e: "who love world peace 是定语从句，修饰 those；support 支持。",
-            },
-          ],
-        },
-        {
-          name: "复习资料四",
-          p1: [
-            {
-              q: "The little girl is waiting for her parents on ____ side of the street.",
-              o: ["other", "the other", "another", "one other"],
-              a: 1,
-              e: "街道只有两边，「（两者中的）另一边」用 the other side。another 泛指三者以上中的另一个。",
-            },
-            {
-              q: "The Smith's family, which ____ rather a large one, ____ very fond of their old houses.",
-              o: ["were, were", "was, was", "were, was", "was, were"],
-              a: 3,
-              e: "集体名词 family：定语从句 which 指「整个家庭」（a large one）→ was；主句说的是家庭成员（their old houses）→ were。整体单数、成员复数。",
-            },
-            {
-              q: "The assignments are too hard. I can't ____ the work.",
-              o: [
-                "keep up with",
-                "catch up with",
-                "come up with",
-                "put up with",
-              ],
-              a: 0,
-              e: "keep up with the work「跟上工作进度」。catch up with 指落后之后再赶上；come up with 想出（主意）；put up with 忍受。",
-            },
-            {
-              q: "Many working parents have difficulty ____ their children to kindergartens in the morning.",
-              o: ["send", "to send", "in sending", "for sending"],
-              a: 2,
-              e: "have difficulty (in) doing sth「做某事有困难」，接动名词。",
-            },
-            {
-              q: "Since 2022, many new teaching buildings ____ in our college.",
-              o: [
-                "are built",
-                "were built",
-                "have been built",
-                "will be built",
-              ],
-              a: 2,
-              e: "Since 2022 是现在完成时的标志；教学楼是「被建造」→ have been built（现在完成时被动）。",
-            },
-            {
-              q: "I'm sorry I forget ____ your umbrella I borrowed last week.",
-              o: [
-                "returning",
-                "having returning",
-                "to return",
-                "to be returned",
-              ],
-              a: 2,
-              e: "forget to do「忘记去做（还没做）」；forget doing 忘记做过。借的伞还没还 → to return。",
-            },
-            {
-              q: "The factory produced ____ cars this year than those of last year.",
-              o: ["as many", "much", "many", "more"],
-              a: 3,
-              e: "句末有 than those of last year → 用比较级 more。",
-            },
-            {
-              q: "He agreed to lend me the money ____ I promised to pay the money back next week.",
-              o: ["as if", "if", "that", "while"],
-              a: 1,
-              e: "条件关系：如果我答应下周还钱，他就同意借钱给我 → if。",
-            },
-            {
-              q: "____ 5G may bring benefits to us, some users care more about its potential health risks.",
-              o: ["If", "Though", "Because", "Unless"],
-              a: 1,
-              e: "让步关系：尽管 5G 有好处，一些用户更关心潜在健康风险 → Though。",
-            },
-            {
-              q: "You can have your mobile phone ____ in a more specialized shop.",
-              o: ["repair", "to repair", "repaired", "repairing"],
-              a: 2,
-              e: "have sth done「让某物被（别人）做」：把手机拿到店里（让别人）修 → repaired。",
-            },
-            {
-              q: "The course is designed for students ____ English language proficiency is excellent.",
-              o: ["whose", "who", "that", "which"],
-              a: 0,
-              e: "定语从句：空格后是名词短语 English language proficiency（谁的英语水平）→ 用 whose。",
-            },
-            {
-              q: "If you ____ my advice last term, you would have passed the examination.",
-              o: ["took", "were taken", "would take", "had taken"],
-              a: 3,
-              e: "对过去的虚拟语气：if 从句用 had done，主句用 would have done（要是你上学期听了我的建议，考试就通过了）。",
-            },
-            {
-              q: "Hardly had I gone out of my house ____ it rained heavily.",
-              o: ["than", "that", "when", "until"],
-              a: 2,
-              e: "hardly...when「刚……就……」：我刚出门雨就下大了（hardly 位于句首，前半句倒装用过去完成时）。",
-            },
-            {
-              q: "He can play almost every kind of music, but he is good at playing ____ .",
-              o: ["the piano", "piano", "a piano", "that piano"],
-              a: 0,
-              e: "演奏西洋乐器前要加定冠词 the：play the piano。",
-            },
-            {
-              q: "Most young people don't know the value of health ____ they lose it.",
-              o: ["after", "until", "when", "because"],
-              a: 1,
-              e: "not...until「直到……才」：直到失去了健康，才知道健康的可贵。",
-            },
-            {
-              q: "It was because of the heavy fog ____ all the flights were delayed.",
-              o: ["what", "which", "that", "why"],
-              a: 2,
-              e: "强调句型 It was...that...（就是由于大雾，所有航班都延误了）。判断方法：去掉 It was...that 后句子仍完整。",
-            },
-            {
-              q: "Last week Jimmy with his classmates ____ kept busy preparing for the final examination.",
-              o: ["is", "are", "was", "were"],
-              a: 2,
-              e: "「A with B」作主语时，谓语随前面的 A（就远原则）：Jimmy 是单数 → was。",
-            },
-            {
-              q: "The word is new to us. You'd better ____ in the dictionary.",
-              o: ["look at it", "look it up", "look for it", "look it out"],
-              a: 1,
-              e: "look up「（在词典里）查阅」；代词宾格 it 必须放在动词和副词中间 → look it up。",
-            },
-            {
-              q: "—Would you like to go to the theatre with me tonight? —____ , but I don't think I can afford the time.",
-              o: [
-                "That's nothing",
-                "Well done",
-                "I'd like to",
-                "I'm afraid not",
-              ],
-              a: 2,
-              e: "委婉接受/拒绝：I'd like to, but...「我很想去，但是……（抽不出时间）」。",
-            },
-            {
-              q: "There are so many kinds of fruits in the markets that I can't decide ____ to buy.",
-              o: ["what", "where", "how", "which"],
-              a: 3,
-              e: "「疑问词 + to do」结构：水果种类太多，决定不了买「哪一种」→ which（在有限范围内选择）。",
-            },
-          ],
-          cloze: {
-            passage:
-              "Making friends is a skill. Like most skills, it {21} patience. If you want to meet people and make friends, you must be willing to {22} some action. You must first go where there are people. You won't make friends staying home {23}. Joining a club or group, talking to those who like the same things {24} you do is much easier. Or join someone {25} some activity.\nMany people are {26} when talking to new people. {27} meeting strangers means seeing the unknown. And it's human nature to feel a bit {28} about the unknown. Most of fears about {29} new people come from doubts about {30}. We imagine other people are {31} us — finding us too tall or too short, too this or too that. But don't forget that they must be feeling the same way. Try to accept yourself {32} you are, and try to put the other at ease. You'll both feel more comfortable.\nTry to act self-confident {33} you don't feel that way when you {34} a room full of strangers. Walk straight, look at other people directly and {35}. If you see someone you'd like to {36}, say something. Don't wait for {37} person to start a talk. Just meeting someone {38} does not mean that you'll make friends with that person. {39} is based on mutual liking and \"give and take\". It takes time to {40} friendship.",
-            qs: [
-              {
-                o: ["costs", "needs", "spends", "wants"],
-                a: 1,
-                e: "交友是一种技能，它「需要」耐心 → needs。cost 花费（金钱/时间为主）；spend 主语是人。",
-              },
-              {
-                o: ["take", "make", "do", "carry"],
-                a: 0,
-                e: "take action「采取行动」，固定搭配。",
-              },
-              {
-                o: ["lonely", "yourself", "alone", "with you"],
-                a: 2,
-                e: "独自待在家里交不到朋友 → alone（独自，陈述事实）；lonely 强调「孤独的」感情色彩。",
-              },
-              {
-                o: ["as", "that", "which", "what"],
-                a: 0,
-                e: "the same...as「和……一样」：和你有同样爱好的人。",
-              },
-              {
-                o: ["with", "in", "on", "to"],
-                a: 1,
-                e: "join sb in sth「加入某人一起做某事」：或加入某人一起进行某项活动。",
-              },
-              {
-                o: ["shy", "excited", "afraid", "worried"],
-                a: 0,
-                e: "和陌生人说话时很多人会「害羞」→ shy，与下文的 fears、doubts 呼应。",
-              },
-              {
-                o: ["At all", "For all", "In all", "After all"],
-                a: 3,
-                e: "after all「毕竟」：毕竟，见陌生人意味着面对未知。in all 总共。",
-              },
-              {
-                o: ["unhappy", "usual", "upset", "unlucky"],
-                a: 2,
-                e: "对未知感到有点「不安」→ feel upset about the unknown。",
-              },
-              {
-                o: ["meeting", "talking", "visiting", "speaking"],
-                a: 0,
-                e: "与前文 talking to new people 呼应：对「见陌生人」(meeting new people) 的恐惧。",
-              },
-              {
-                o: ["yourself", "himself", "yourselves", "ourselves"],
-                a: 3,
-                e: "主语是 we（Most of fears...come from），对应的反身代词是 ourselves：恐惧源于对「我们自己」的怀疑。",
-              },
-              {
-                o: ["talking", "saying", "judging", "laughing"],
-                a: 2,
-                e: "想象别人在「评判」我们：finding us too tall or too short 正是评判的内容 → judging。",
-              },
-              {
-                o: ["like", "as", "what", "that"],
-                a: 1,
-                e: "accept yourself as you are「接受本真的自己」，as 引导方式状语。",
-              },
-              {
-                o: ["even when", "even if", "as if", "what if"],
-                a: 1,
-                e: "even if = 即使：「即使」你并不自信，也要表现出自信的样子。",
-              },
-              {
-                o: ["come", "go", "enter", "step to"],
-                a: 2,
-                e: "enter 是及物动词，直接接宾语：enter a room 进入房间。",
-              },
-              {
-                o: ["laugh", "smile", "cry", "jump"],
-                a: 1,
-                e: "自信的肢体语言：walk straight, look at people directly and smile（昂首、直视、微笑）。",
-              },
-              {
-                o: ["speak to", "talk about", "say to", "call up"],
-                a: 0,
-                e: "你想「与之交谈」的人 → speak to sb；talk about 谈论（内容）。",
-              },
-              {
-                o: ["other", "the other", "another", "others"],
-                a: 1,
-                e: "特指交谈双方中的「另一方/对方」→ the other person：别等对方先开口。",
-              },
-              {
-                o: ["old", "young", "new", "little"],
-                a: 2,
-                e: "仅仅认识一个「新」朋友（someone new），不代表就能成为朋友。",
-              },
-              {
-                o: ["Relation", "Friendship", "Connection", "Feeling"],
-                a: 1,
-                e: "全文主题是交友：友谊建立在相互喜欢和「给予与索取」之上 → Friendship。",
-              },
-              {
-                o: ["develop", "start", "keep", "change"],
-                a: 0,
-                e: "develop friendship「培养友谊」：友谊需要时间来培养。",
-              },
-            ],
-          },
-          reading: [
-            {
-              passage:
-                "Have you ever been ill? When you are ill, you must be unhappy because your body becomes hot, and there are pains all over your body. You don't want to work and you stay in bed, feeling very sad.\nWhat makes us ill? It is germs. Germs are everywhere. They are very small and you can't find them with your eyes, but you can see them with a microscope. They are very small and there could be hundreds of them on a very small thing.\nGerms are always found in dirty water. When we look at dirty water under the microscope, we shall see them in it. So your father and mother will not let you drink dirty water. Germs aren't found only in water. They are found in air and dust. If you cut your finger, if some of the dust from the floor goes into the cut, some of the germs would go into your finger. Your finger would become big and red, and you will have much pain in it. Sometimes the germs would go into all of your body, and you would have pain everywhere.",
-              qs: [
-                {
-                  q: "Which of the following is TRUE?",
-                  o: [
-                    "If things are very small, they are germs.",
-                    "If things can't be seen, they must be germs.",
-                    "Germs are only in dirty water.",
-                    "Germs are everywhere around us.",
-                  ],
-                  a: 3,
-                  e: "细节题：第二段 Germs are everywhere（细菌无处不在），且第三段说水里、空气和灰尘里都有 → D 正确；C 项 only 与原文矛盾。",
-                },
-                {
-                  q: "Why don't your parents let you drink dirty water?",
-                  o: [
-                    "You haven't looked at it carefully.",
-                    "Water can't be drunk in this way.",
-                    "There must be lots of germs in it.",
-                    "Water will make you ill.",
-                  ],
-                  a: 2,
-                  e: "细节题：Germs are always found in dirty water（脏水里总有大量细菌）→ 不让喝脏水是因为里面有细菌。",
-                },
-                {
-                  q: "Which of the following is NOT true?",
-                  o: [
-                    "Germs can be found both in water and in the air.",
-                    "Germs can go into your finger if it is cut.",
-                    "If your temperature is not OK, there must be germs in your body.",
-                    "If your finger isn't cut, there aren't any germs on it.",
-                  ],
-                  a: 3,
-                  e: "判断题：细菌无处不在（水、空气、灰尘），所以「手指没割伤上面就没有细菌」错误。A、B、C 均与原文相符。",
-                },
-                {
-                  q: "What's the main idea of the passage?",
-                  o: [
-                    "Germs may make us ill.",
-                    "Germs are in dirty water.",
-                    "Don't drink dirty water.",
-                    "Take care of your fingers.",
-                  ],
-                  a: 0,
-                  e: "主旨题：全文讲「是什么让我们生病——细菌」及其分布和致病方式 → 细菌可能使我们生病。",
-                },
-              ],
-            },
-            {
-              passage:
-                "As we all know, English is an important subject in middle school. Everyone knows that they must learn English well, but some people don't know how to learn it well. Here are some suggestions which may help you with your English.\nThe biggest problem is people's own fear. They worry that they won't say things correctly or that they will look foolish so that they don't speak English at all. Don't be afraid of being laughed at. Only if we aren't afraid of making mistakes can we learn English well.\nThe fastest way to learn something is to do it again and again until you get it right. Learning English needs practice. Don't let a little fear stop you from getting what you want. The best way to learn English is to have a good environment. Take notes in English, put English books around your room, listen to English radios, as well as watch English news, movies and TV programs. Speak English with your friends whenever you can. The more English materials that you have around you, the faster you will learn it. Many people think that exercises and tests aren't much fun. However, by doing exercises and taking tests you can really improve your English. If you never test yourself, you will never know how much you are making progress.",
-              qs: [
-                {
-                  q: "The biggest problem of learning English is ____ .",
-                  o: [
-                    "not knowing how to learn",
-                    "being afraid of being laughed at",
-                    "looking foolish",
-                    "making mistakes",
-                  ],
-                  a: 1,
-                  e: "细节题：The biggest problem is people's own fear——怕说错被嘲笑，索性不开口 → 害怕被嘲笑。",
-                },
-                {
-                  q: "The fastest way to learn English well is ____ .",
-                  o: [
-                    "practicing over and over again",
-                    "listening to it every day",
-                    "going over the fear",
-                    "going to a foreign country",
-                  ],
-                  a: 0,
-                  e: "细节题：The fastest way to learn something is to do it again and again until you get it right → 反复练习。",
-                },
-                {
-                  q: "To create a good environment, you need to do many things except ____ .",
-                  o: [
-                    "putting English books around your room",
-                    "listening to English radios",
-                    "watching English news and movies",
-                    "speaking English with your friends only in class",
-                  ],
-                  a: 3,
-                  e: "排除题：原文说 Speak English with your friends whenever you can（任何时候都可以说英语），「只在课堂上说」不在建议之列。",
-                },
-                {
-                  q: "According to the passage, English exercises and tests are ____ .",
-                  o: [
-                    "very necessary",
-                    "not helpful at all",
-                    "very boring",
-                    "not important",
-                  ],
-                  a: 0,
-                  e: "细节题：by doing exercises and taking tests you can really improve your English → 做练习和测试很有必要。",
-                },
-              ],
-            },
-          ],
-          trans: [
-            {
-              en: "It's against the traffic laws to talk on the cellphone while driving.",
-              zh: "开车时打电话是违反交通法规的。",
-              e: "be against 违反；while driving = while you are driving（当开车时）。",
-            },
-            {
-              en: "Though we have made progress in learning, there is still a long way to go.",
-              zh: "虽然我们在学习上取得了进步，但还有很长的路要走。",
-              e: "though 虽然（不能与 but 连用）；a long way to go 还有很长的路要走。",
-            },
-            {
-              en: "In 2008, China successfully made history by hosting the Olympic Games for the first time.",
-              zh: "2008年中国首次成功举办奥运会，创造了历史。",
-              e: "by doing sth 通过做某事；host 主办；for the first time 首次。",
-            },
-            {
-              en: "Good preparation before the interview is very important for the chance of success.",
-              zh: "面试前的充分准备对获得成功的机会是至关重要的。",
-              e: "good preparation 充分准备；the chance of success 成功的机会。",
-            },
-            {
-              en: "Nowadays online shopping is more and more popular among consumers.",
-              zh: "现在网上购物越来越受到消费者的喜爱。",
-              e: "more and more popular 越来越流行；consumer 消费者；online shopping 网上购物。",
-            },
-          ],
-        },
-      ];
-      /*DATA_END*/
+const PAPERS=[
+{name:"复习资料一",
+p1:[
+{q:"To tell you the ____ , I don't agree with you.",o:["true","truly","truth","truly"],a:2,cn:"老实说，我不同意你的看法。",ops:["true 是形容词「真的」，此处需要名词","truly 是副词「真正地」，词性不符","✓ truth 名词；固定句型 to tell you the truth「说实话」","同 B，副词，排除"],g:"agree with sb「同意（某人的看法）」；对比：agree to sth 同意某事、agree on 就…达成一致。",e:"固定句型 to tell you the truth（说实话），空格处需用名词 truth。"},
+{q:"I owe you some money. Let me pay you ____ now.",o:["back","for","in","to"],a:0,cn:"我欠你一些钱，现在让我还你。",ops:["✓ pay back「偿还」，pay you back＝把钱还给你","pay for 后接买到的东西（pay for the book），不接人","pay in「存入（款项）」，语境不合","pay to 单独不构成固定搭配（pay sth to sb 需带宾语）"],g:"owe sb sth＝owe sth to sb「欠某人某物」；Let me... 祈使句表建议。",e:"pay back「偿还（欠款）」：我欠你钱，现在还你。"},
+{q:"The banker will explain the terms of loan to you ____ detail.",o:["on","in","with","out of"],a:1,cn:"银行职员会向你详细解释贷款条款。",ops:["on 无此搭配","✓ in detail 固定搭配「详细地」","with 无此搭配","out of 无此搭配"],g:"explain sth to sb「向某人解释某事」，to 不可省；the terms of loan 贷款条款。",e:"固定搭配 in detail「详细地」。"},
+{q:"The picture reminds me ____ the time we spent together in New York.",o:["of","in","for","to"],a:0,cn:"这张照片让我想起我们一起在纽约度过的时光。",ops:["✓ remind sb of sth「使某人想起某事」","in 无此搭配","for 无此搭配","to 无此搭配"],g:"we spent together... 是省略 that/which 的定语从句，修饰 the time；spend...（in）doing 花时间做。",e:"remind sb of sth「使某人想起某事」。"},
+{q:"I'm rather anxious ____ her, for I haven't heard from her for a long time.",o:["toward","about","in","over"],a:1,cn:"我相当担心她，因为我很久没有她的消息了。",ops:["toward 多用于 attitude toward（对…的态度）","✓ be anxious about「为…担忧」","in 无此搭配","over 无此搭配"],g:"hear from sb「收到某人的来信/消息」；rather「相当」，修饰形容词。",e:"be anxious about「为……担忧」，后半句「很久没有她的消息」印证了担心。"},
+{q:"I suddenly realized that he was trying to ____ quarrelling with me.",o:["consider","enjoy","avoid","prevent"],a:2,cn:"我突然意识到他是想避免和我争吵。",ops:["consider 后虽可接 doing，但「考虑吵架」语义不通","enjoy doing「喜欢做」，语义不合","✓ avoid doing sth「避免做某事」","prevent 的用法是 prevent sb (from) doing，不直接接 doing"],g:"quarrel with sb「与某人争吵」；that 从句作 realized 的宾语。",e:"avoid doing sth「避免做某事」。"},
+{q:"It was not a serious accident; our car needs only some ____ repairs.",o:["major","secondary","minor","primary"],a:2,cn:"那不是一起严重的事故，我们的车只需要小修一下。",ops:["major「大的、主要的」，与 not serious 矛盾","secondary「次要的」，不与 repairs 搭配表「小修」","✓ minor「小的、轻微的」，minor repairs 小修","primary「首要的」，语义不合"],g:"分号连接两个并列分句；need 作实义动词「需要」。",e:"前半句「不是严重事故」→ 只需 minor（小的）repairs。"},
+{q:"Don't ____ to let me know if there is anything I can do for you.",o:["reject","prevent","hesitate","refuse"],a:2,cn:"如果有什么我能帮上忙的，请别犹豫尽管告诉我。",ops:["reject 及物动词「拒绝（某物）」，不接 to do","prevent 及物动词「阻止」，用法 prevent sb from doing","✓ hesitate to do sth「犹豫（不愿）做某事」","refuse to do 语法正确，但意为「拒绝告知」，与语境相反"],g:"if 从句中有 anything，用于疑问/否定语境。",e:"hesitate to do sth「别犹豫」。"},
+{q:"His ears are highly sensitive ____ any unusual sound in the machine.",o:["of","to","on","by"],a:1,cn:"他的耳朵对机器里任何异常的声音都极为敏感。",ops:["of 无此搭配","✓ be sensitive to「对…敏感」","on 无此搭配","by 无此搭配"],g:"highly 修饰形容词 sensitive；unusual＝un+usual「异常的」。",e:"be sensitive to「对……敏感」。"},
+{q:"We are looking forward to ____ to the lecture by the famous professor.",o:["send","be sent","being sent","sending"],a:2,cn:"我们都盼着被派去听那位著名教授的讲座。",ops:["send 动词原形；look forward to 的 to 是介词，后须接动名词","be sent 不定式，词性不符","✓ being sent 动名词被动式：「被派去」","sending 主动式；「我们被派」应为被动"],g:"look forward to 中 to 为介词，后接 doing；by the famous professor 表被动执行者。",e:"短语 look forward to 中 to 是介词，接动名词；「被派去听讲座」用被动 being sent。"},
+{q:"Only by working hard ____ succeed.",o:["can you","you can","should you","you should"],a:0,cn:"只有努力，你才能成功。",ops:["✓ Only+状语位于句首 → 部分倒装：can you succeed","语序未倒装，错误","倒装形式正确，但 should「应该」与句意「能够成功」不符","无倒装且情态不当"],g:"by + doing「通过…方式」；「Only + 状语」置句首必须部分倒装（情态动词/助动词提前）。",e:"「Only + 状语」位于句首引起部分倒装：Only by working hard can you succeed。"},
+{q:"Jenny didn't have time to go to concert last night because she was busy ____ for her examination.",o:["to prepare","to be prepared","preparing","being prepared"],a:2,cn:"珍妮昨晚没时间去听音乐会，因为她忙着备考。",ops:["be busy 不接 to do","被动式无依据，且 busy 后不接不定式","✓ be busy doing sth「忙于做某事」","being prepared 进行被动式，错误"],g:"have time to do sth「有时间做某事」；because 引导原因状语从句。",e:"be busy doing sth「忙于做某事」。"},
+{q:"If you spare half an hour each day to read an English newspaper, you will surely be able to read ____ .",o:["efficiently","sufficiently","actually","purposefully"],a:0,cn:"如果每天抽半小时读英文报纸，你的阅读一定会变得高效。",ops:["✓ efficiently「高效地」，每天坚持读报→阅读高效","sufficiently「足够地」","actually「实际上」","purposefully「有目的地」"],g:"be able to do「能够做」；spare「抽出（时间）」。",e:"每天坚持读报 → 阅读变得高效 efficiently。"},
+{q:"____ you've got a chance, you might as well make full use of it.",o:["Now that","After","In that","As soon as"],a:0,cn:"既然你得到了机会，不妨充分利用它。",ops:["✓ now that「既然」，引出已知条件","After「在…之后」，时间义不合","In that「因为、在于」，书面语且此处不通","As soon as「一…就…」，时间义不合"],g:"might as well「不妨」；make full use of「充分利用」。",e:"now that「既然」：既然有机会，不妨充分利用。"},
+{q:"The real trouble ____ their lack of confidence in their abilities.",o:["lies in","lies on","results in","leads to"],a:0,cn:"真正的麻烦在于他们缺乏对自己能力的信心。",ops:["✓ lie in「在于」","lies on 无此搭配","results in「导致」，后接结果；此处 lack 是内容不是结果","leads to「导致」，同 C"],g:"lack of confidence「缺乏信心」；lack 也可作动词：lack confidence。",e:"lie in「在于」：真正的麻烦在于缺乏自信。result in / lead to 都表示「导致」。"},
+{q:"You will be given a ticket if you ____ the speed limit.",o:["proceed","exceed","succeed","precede"],a:1,cn:"如果你超速，就会被开罚单。",ops:["proceed「继续进行」","✓ exceed the speed limit「超速」","succeed「成功」，形近干扰","precede「先于」，形近干扰"],g:"will be given 一般将来时被动；ticket 此处指「罚单」。",e:"词形辨析：exceed「超过（限度）」→ 超速被开罚单。"},
+{q:"The movie star ____ with your sister, didn't he?",o:["was used to dance","used to dancing","used to dance","was used to dancing"],a:2,cn:"那位影星过去常和你姐姐跳舞，不是吗？",ops:["was used to dance 结构混乱（be used to do＝被用来做）","used to dancing 缺 be 动词","✓ used to do「过去常常做」","was used to dancing「习惯于跳舞」，非「过去常做」"],g:"反义疑问 didn't he 表明前句是过去时的实义动词。",e:"used to do「过去常常做」；be used to doing「习惯于做」。反义疑问部分 didn't he 说明是对过去的陈述。"},
+{q:"The three hours I spent in the school library ____ my old passion for reading.",o:["brought about","brought over","brought up","brought back"],a:3,cn:"我在学校图书馆度过的那三个小时，唤回了我对阅读的旧日热情。",ops:["brought about「导致、引起」","brought over「带来（从别处）」","brought up「抚养；提出」","✓ brought back「唤回、重新唤起」"],g:"The three hours (that) I spent... 定语从句省略 that；passion for「对…的热情」。",e:"bring back「唤回」旧日的阅读热情。"},
+{q:"Mother insisted that ____ .",o:["they are to be back before nine in the evening","they ought to be back before nine in the evening","they be back before nine in the evening","they had to be back before nine in the evening"],a:2,cn:"母亲坚持要求他们晚上九点前必须回家。",ops:["are to be 现在时陈述语气，虚拟须用原形","ought to be 情态陈述，非虚拟","✓ (should+) be 虚拟语气动词原形","had to be 陈述语气「不得不」"],g:"insist 表「坚决要求」→ 宾语从句虚拟；insist 表「坚持说（事实）」→ 用陈述语气。",e:"insist 表示「坚决要求」时，宾语从句用虚拟语气：(should +) 动词原形。"},
+{q:"The child was ____ immediately after supper.",o:["so tired that he went to bed","enough tired to go to bed","too tired to go to bed","very tired, he went to bed"],a:0,cn:"孩子吃完晚饭后累得立刻就上床睡觉了。",ops:["✓ so...that「如此…以至于」，that 从句表结果","enough 位置错误：应为 tired enough to","too...to「太…而不能去睡」，语义相反","两个谓语之间无连词，句法错误"],g:"immediately after「紧接…之后」。",e:"so...that「如此……以至于」：累得直接去睡觉了。C 项 too tired to 意为「太累而不去睡觉」，语义相反。"}
+],
+cloze:{passage:"Do you forget to turn off the lights and heaters when you go out of a room? In 2040 it will not {21}. They will turn themselves off — and on again when you return. A sensor will {22} the presence of a human and turn the systems on, and when the humans {23}, it will turn them off again.\nThe sensors will work {24} the central home computer, and they will do much more than just turn the fires and lights on and off for you. They will detect {25} electrical appliances, plugs or switches, {26} them so that they cannot harm anyone and then {27} you that they need {28}. They will detect fire and if you are out of the house, the computer will call the fire brigade. It will also call the police {29} the sensors detect an intruder. This will not be too difficult {30} the locks on the {31} doors will be electronic. You will open them using your {32} card — the one you use for {33} — maybe using a number {34} only to you.\nThe computer will be {35} than a fireman-policeman servant. It will be an entertainer, and most of your {36} will come {37} into your home. It does now, {38} by 2040 \"entertainment\" will {39} much more. For one thing, you will be able to take {40} actively, rather than just watching...",
+qs:[
+{o:["matter","function","work","mind"],a:0,cn:"到2040年这就不要紧了——它们（灯和暖气）会自己关闭，你回来时再自动打开。",ops:["✓ not matter「不要紧、没关系」","function「功能；运转」，语义不合","work「起作用」；not work＝失灵，与后文自动开关矛盾","mind「介意」，主语通常是人"],g:"turn themselves off 反身代词作同位语「它们自己」。",e:"not matter「不要紧」：忘了关灯也不要紧，它们会自己关。"},
+{o:["evaluate","uncover","detect","expose"],a:2,cn:"传感器会探测到人的存在并打开系统。",ops:["evaluate「评估」","uncover「揭露」","✓ detect「探测」（下文多次复现）","expose「暴露」"],g:"the presence of a human「人的存在」。",e:"传感器「探测」人的存在用 detect，下文多次出现 detect。"},
+{o:["retire","leave","withdraw","retreat"],a:1,cn:"当人离开时，它再把系统关闭。",ops:["retire「退休」","✓ leave「离开」","withdraw「撤回、退出」","retreat「撤退」"],g:"them 指代前文的 the systems。",e:"人「离开」时系统自动关闭。"},
+{o:["during","in","through","between"],a:2,cn:"传感器通过中央家庭电脑运作，它们能做的不只是替你开关炉火和灯。",ops:["during 是介词但语义不合","in 无此搭配","✓ through「通过」","between「在…之间」，语义不合"],g:"much more than「远不止」。",e:"work through「通过…来运作」。"},
+{o:["displeasing","unpleasant","faulty","mistaken"],a:2,cn:"它们会探测出有故障的电器、插头或开关。",ops:["displeasing「令人不快的」，多形容人","unpleasant「不愉快的」","✓ faulty「有故障的」，与后文「需要维修」呼应","mistaken「弄错的」"],g:"so that 引导目的状语从句。",e:"faulty「有故障的」，与后文 need repair 呼应。"},
+{o:["depart","isolate","divide","break"],a:1,cn:"把它们隔离开，使它们无法伤害任何人。",ops:["depart「离开」，不及物","✓ isolate「隔离」","divide「划分」","break「打破」"],g:"harm 及物动词「伤害」。",e:"isolate「隔离」以免伤人。"},
+{o:["warn","tell","persuade","assure"],a:0,cn:"然后提醒你它们需要维修。",ops:["✓ warn「提醒、警告」，可接 that 从句，贴合安全语境","tell「告诉」，无警示义，语境强调安全","persuade「说服」","assure「保证」"],g:"need + 名词（repair）。",e:"warn you that...「提醒/警告你」。"},
+{o:["mend","reference","separation","repair"],a:3,cn:"（同上句）它们需要修理。",ops:["mend「修补」，多指衣物、小物件","reference「参考」","separation「分离」","✓ repair 名词「维修」，与电器搭配"],g:"（与27空同句）",e:"need repair「需要修理」。"},
+{o:["will","should","shall","can"],a:1,cn:"万一传感器探测到闯入者，它（电脑）还会报警。",ops:["will 不能用于省略 if 的倒装条件句","✓ should...＝if...should「万一」，正式用法","shall 不用于此结构","can 无此用法"],g:"call the police「报警」。",e:"should the sensors detect...＝ if the sensors detect...（省略 if 的条件倒装）。"},
+{o:["unless","if","when","because"],a:3,cn:"这不会太难，因为外面的门锁将是电子锁。",ops:["unless「除非」","if「如果」，前句是判断而非条件","when「当…时」","✓ because「因为」，后文解释原因"],g:"too difficult 中 too「太」。",e:"前后是因果关系：门锁是电子的，所以不难。"},
+{o:["inside","outside","outstanding","obvious"],a:1,cn:"你将用你的个人卡打开外门。",ops:["inside「里面的」，逻辑相反","✓ outside「外面的」，用卡开的自然是外门","outstanding「杰出的」，形近干扰","obvious「明显的」，形近干扰"],g:"using... 现在分词作方式状语。",e:"outside doors「外门」。"},
+{o:["personal","personnel","particular","general"],a:0,cn:"——就是那张你购物时用的卡。",ops:["✓ personal「个人的」，personal card 个人卡","personnel「人事；员工」，名词形近干扰","particular「特定的」","general「通用的」"],g:"破折号引出同位语 the one...。",e:"personal card「个人卡」；personnel 是名词，形近干扰。"},
+{o:["hiring","buying","renewing","shopping"],a:3,cn:"（同上句）就是购物时用的那张卡。",ops:["hiring「雇用」","buying「购买」（buy sth 而非 for）","renewing「续期」","✓ shopping「购物」，use ... for shopping"],g:"（与32空同句）",e:"购物用卡：use the card for shopping。"},
+{o:["realized","adapted","known","informed"],a:2,cn:"也许还要用一组只有你才知道的号码。",ops:["realized「意识到」","adapted「适应」","✓ known「已知的」，be known to sb 为某人所知，过去分词作后置定语","informed「已被告知的」（be informed of）"],g:"only to you 介词短语作状语。",e:"a number known only to you「只有你知道的号码」。"},
+{o:["more","much","many","fewer"],a:0,cn:"这台电脑将不只是「消防员加警察」式的仆人。",ops:["✓ more...than「比…更」，后文有 than","much 不与 than 构成比较级","many 修饰可数复数","fewer「更少的」，语义不合"],g:"servant 名词「仆人」。",e:"句中有 than，用比较级 more...than。"},
+{o:["achievements","announcements","improvement","entertainment"],a:3,cn:"它还将是个娱乐提供者，你大部分的娱乐会直接进入家门。",ops:["achievements「成就」","announcements「公告」","improvement「改善」，词义与单复数均不符","✓ entertainment「娱乐」，呼应上句 entertainer"],g:"most of + 名词「大多数」。",e:"上句说它是 entertainer → 大部分 entertainment 将进入你家。"},
+{o:["only","right","correctly","fast"],a:1,cn:"（同上句）娱乐会直接进入你家。",ops:["only「仅仅」","✓ right（副词）「直接、正好」","correctly「正确地」","fast「快速地」"],g:"right 作副词修饰 into。",e:"come right into「直接进入」，right 强调「直接」。"},
+{o:["but","or","other","then"],a:0,cn:"现在也是如此，但到2040年，「娱乐」的含义会更多。",ops:["✓ but 转折","or「或者」","other 是形容词，不能单独作连词","then「然后」"],g:"by + 时间「到…之前」，常与完成/将来连用。",e:"前后转折：现在也如此，但到2040年含义更多。"},
+{o:["intend","understand","mean","program"],a:2,cn:"（同上句）「娱乐」将意味着更多。",ops:["intend「打算」","understand「理解」","✓ mean「意味着」","program「编程」"],g:"（与38空同句）",e:"mean much more「意味着更多」。"},
+{o:["part","place","step","time"],a:0,cn:"一方面，你可以主动参与，而不是只当观众。",ops:["✓ take part (in)「参加」","take place「发生」，语义不合","take steps「采取措施」，搭配此处不通","take time「花时间」"],g:"rather than + doing「而不是」。",e:"take part actively「主动参与」，与 rather than just watching 相对。"}
+]},
+reading:[
+{passage:"I don't often lose things and I'm especially careful with money, so I was quite surprised when I reached for my wallet and it wasn't there. At first, I thought it was possible that I could have left it at home. Then I remembered taking it out to pay the taxi, so I knew I had it with me just before I walked into the restaurant. I wondered if it was possible that it could have slipped out of my pocket while I was eating dinner. Thinking about the possibility, I turned and walked back to the table where I had been sitting. Unfortunately, there were several people sitting at the table at that time, so I had the waiter go over to the table to see if my wallet was on the floor. While the waiter was looking for it, the manager of the restaurant came up to me and asked me if anything was wrong. I didn't want to get a lot of people involved in the problem, but I knew I had to get the wallet back. I told the manager what had happened. He had me describe the wallet to him, and then he insisted that I report the missing wallet to the police. I told him that I had an appointment with my doctor in just a few minutes. I explained to him that my biggest worry at the moment was how I was going to pay the check. He told me not to worry about that. He asked me to write down my name and address, and he said he would send me a bill.",
+qs:[
+{q:"According to the passage, we know the writer ____ .",o:["seldom loses things","very often loses things","loses things once in a while","never loses things"],a:0,cn:"根据文章，我们知道作者____。",ops:["✓ seldom「很少」＝首句 don't often lose things","very often「经常」，与首句相反","once in a while「偶尔」，程度不符且原文强调很少","never「从不」，过于绝对"],e:"首句 I don't often lose things（我不常丢东西）＝ seldom loses things。"},
+{q:"That day the writer found ____ .",o:["he had lost his wallet","he had left his wallet at home","his wallet was stolen by a thief","his wallet was lying under the table"],a:0,cn:"那天作者发现____。",ops:["✓ 伸手拿钱包发现不在→钱包丢了","落在家里——后文证实钱包随身带着","被小偷偷走——文中无偷窃证据","在桌子下——并没有找到"],e:"钱包不在身上 → 发现丢了；B/C/D 均与原文矛盾。"},
+{q:"Why was the writer so sure he had brought his wallet with him?",o:["He remembered not having left it at home.","He believed his own memory.","He always felt his pocket for the wallet before he left home.","He had taken it out to pay his taxi-driver."],a:3,cn:"作者为什么确信钱包带在身上？",ops:["记得没落家里——原文先怀疑落家后被否定","相信自己的记忆——非原文依据","出门前总摸口袋确认——未提及","✓ 付出租车费时掏出过钱包"],e:"原文 remembered taking it out to pay the taxi：付车费时还掏出过钱包。"},
+{q:"According to the passage, the writer most probably lost his wallet when ____ .",o:["he took it out to pay his taxi","he walked into the restaurant","he was eating dinner","he was ordering his dish"],a:2,cn:"根据文章，作者最可能是在____时丢的钱包。",ops:["付出租车费时——那时钱包还在手里","走进餐厅时——与后文线索不符","✓ 吃晚饭时（slip out while eating dinner）","点菜时——未提及"],e:"原文 wondered if it could have slipped out of my pocket while I was eating dinner。"}
+]},
+{passage:"Playing video games can be a fun way to unwind or spend time with friends. In schools, teachers use games like Minecraft to encourage teamwork and critical thinking. But for some players, gaming has become an unhealthy habit. Late at night, they are glued to a screen. Schoolwork suffers. The video-game world seems a friendlier place than the real one.\nMental health experts have taken notice. In June, the World Health Organization (WHO) added gaming disorder to its list of diseases and health conditions. A person may have the disorder if gaming has damaged his or her relationships with family and friends, and if it has affected his or her daily activities.\nNot all experts agree that excessive gaming should be called a disorder. They say people hooked on video games may be suffering from other mental health problems that should be treated first. Others think WHO made the right call. Psychiatrist Clifford Sussman treats gaming addiction. He says kids often have feelings of anxiety and loneliness. They get angry when a parent asks them to stop playing video games.\nWhat makes video games addictive? Playing excites the brain's reward center. After a while, the brain becomes numb to pleasure. You feel bored without a controller in your hand. So you play even more. One key to healthy gaming is to track how long you play. Sussman recommends taking at least an hour-long break after every hour of play. That gives the brain time to recover.",
+qs:[
+{q:"Which of the following is the best title for the passage?",o:["Mental Health Problems","Excessive Gaming","Unhealthy Habits","Teamwork Training"],a:1,cn:"以下哪项是本文的最佳标题？",ops:["心理健康问题——范围过大","✓ 过度游戏（全文核心 gaming disorder）","不健康的习惯——过于宽泛","团队训练——仅首段细节"],e:"主旨题：全文围绕游戏成瘾展开，B 项最能概括。"},
+{q:"The word 'unwind' in Paragraph 1 is closest in meaning to ____ .",o:["match","meet","retreat","relax"],a:3,cn:"第一段中的 unwind 与____意思最接近。",ops:["match「匹配」","meet「见面」","retreat「撤退」","✓ relax「放松」"],e:"首句说打游戏是放松、消遣的方式 → unwind＝relax。"},
+{q:"Clifford Sussman's attitude to WHO's recognition of excessive gaming as a disorder is ____ .",o:["supportive","doubtful","neutral","critical"],a:0,cn:"Sussman 对 WHO 将过度游戏认定为疾病的态度是____。",ops:["✓ supportive「支持」——认同 WHO 的判断并治疗游戏成瘾","doubtful「怀疑」","neutral「中立」","critical「批评」"],e:"态度题：Others think WHO made the right call，随后介绍的 Sussman 治疗成瘾并分析成因，属支持一方。"},
+{q:"Sussman advises game players to ____ .",o:["quit playing video games","play sports instead of video games","go to the hospital to get medical treatment","rest for at least an hour after every hour of play"],a:3,cn:"Sussman 建议游戏玩家____。",ops:["戒掉游戏——建议过度","改玩运动——未提及","去医院治疗——曲解文意","✓ 每玩1小时至少休息1小时"],e:"细节题：recommends taking at least an hour-long break after every hour of play。"}
+]}
+],
+trans:[
+{en:"Let children learn to judge their own work.",zh:"让孩子学会判断他们自己的工作。",e:"let sb do sth 让某人做某事；judge 判断。"},
+{en:"It is well-known that the potential of the human brain is limitless.",zh:"众所周知，人脑的潜力是无限的。",e:"It is well-known that...「众所周知……」，that 从句是真正主语；potential 潜力；limitless 无限的。"},
+{en:"On the positive side, they are often full of zest for life.",zh:"从积极的方面看，他们时常对生活充满热情。",e:"on the positive side 从积极方面看；zest for life 对生活的热情（zest＝热情）。"},
+{en:"As far as housing is concerned, he prefers the country to the city.",zh:"就住房状况而言，他更喜欢农村而不是城市。",e:"as far as ... is concerned 就……而言；prefer A to B 比起 B 更喜欢 A。"},
+{en:"People realize it more and more important to learn to adapt to the surrounding environment.",zh:"人们认识到学会适应周围环境变得越来越重要。",e:"more and more 越来越；adapt to 适应；the surrounding environment 周围环境。"}
+]},
+{name:"复习资料二",
+p1:[
+{q:"We believe our football players will try ____ best to win the game.",o:["them","they","their","themselves"],a:2,cn:"我们相信我们的足球运动员会尽全力赢得比赛。",ops:["them 宾格，不能修饰名词","they 主格，不可作定语","✓ their：try one's best 中 one's 与主语对应","themselves 反身代词，不作定语"],g:"win the game 赢得比赛；believe 后接省略 that 的宾语从句。",e:"try one's best「尽某人最大努力」，one's 与 our football players 对应 → their。"},
+{q:"No one doubts ____ he is the best leader in the company.",o:["whether","if","what","that"],a:3,cn:"没有人怀疑他是公司最好的领导。",ops:["whether 用于肯定句 doubt 之后","if 同 whether，且此处为否定句","what 引导从句须在从句中作成分，此处不缺","✓ doubt 用于否定句时后接 that"],g:"the best 最高级；in the company 范围状语。",e:"doubt 用于否定句（No one doubts）时接 that；肯定句才用 whether/if。"},
+{q:"The banker will explain the terms of loan to you ____ detail.",o:["on","in","with","out of"],a:1,cn:"银行职员会向你详细解释贷款条款。",ops:["on 无此搭配","✓ in detail 固定搭配「详细地」","with 无此搭配","out of 无此搭配"],g:"⚠ 此题与资料一第3题完全相同——高频重复题，务必秒选。",e:"in detail「详细地」。（重复题：与资料一第3题相同）"},
+{q:"Talking to foreigners is fun if you ____ the right time and place.",o:["locate","consider","choose","decide"],a:2,cn:"如果选对了时间和场合，和外国人交谈是件有趣的事。",ops:["locate「定位、找出地点」","consider「考虑」","✓ choose「选择」","decide「决定」，常接 to do"],g:"动名词短语 Talking to foreigners 作主语，谓语用单数 is。",e:"选对时间和场合 → choose the right time and place。"},
+{q:"To be ____ is to state or express things in an open and honest way.",o:["frank","guilty","smart","upset"],a:0,cn:"坦率，就是以公开、诚实的方式陈述或表达事情。",ops:["✓ frank「坦率的」，与 open and honest 呼应","guilty「有罪的、内疚的」","smart「聪明的」","upset「难过的」"],g:"不定式 To be... 作主语；定义句式 A is to B。",e:"空格后的解释 open and honest → frank「坦率的」。"},
+{q:"Jane ____ French very fluently though she was born and grew up in Australia.",o:["talks","says","speaks","tells"],a:2,cn:"虽然 Jane 出生并成长在澳大利亚，但她的法语说得很流利。",ops:["talks「谈话」，不及物，不直接接语言","says「说」，后接具体内容","✓ speaks「说（某种语言）」","tells「告诉」"],g:"though 引导让步状语从句；fluently 副词修饰动词。",e:"「说某种语言」用 speak。"},
+{q:"Hurry up! We have ____ to spare.",o:["a little time","a few time","few time","little time"],a:3,cn:"快点！我们几乎没时间了。",ops:["a little time「还有一些时间」，与 Hurry up! 矛盾","a few time：time 不可数，不能用 a few","few time：few 只修饰可数名词","✓ little time「几乎没有时间」"],g:"to spare 作后置定语「剩余的」。",e:"time 不可数排除 few 类；Hurry up! 说明「几乎没有」→ little time。"},
+{q:"It's time ____ ready for work.",o:["getting","to get","get","got"],a:1,cn:"该准备上班了。",ops:["getting 无此结构","✓ It's time to do sth「该做某事了」","get 缺 to（虚拟式应为 It's time we got ready）","got 时态形式错误"],g:"对比虚拟式：It's (high) time that we got ready（从句用过去式）。",e:"It's time to do sth「该做某事了」。"},
+{q:"For both sides' ____ , the contract placed clear obligations on this cooperation.",o:["beneficent","beneficial","benefit","benefactors"],a:2,cn:"为了双方的利益，合同对这项合作规定了明确的义务。",ops:["beneficent「仁慈的」，形容词","beneficial「有益的」，形容词","✓ benefit 名词「利益」，名词所有格后接名词","benefactors「捐助者」，名词但语义不合"],g:"place obligations on...「对…施加义务」。",e:"名词所有格 both sides' 后接名词 benefit。"},
+{q:"Jasper is quite ____ with Central Television. He worked there for 25 years.",o:["agreed","familiar","consistent","allied"],a:1,cn:"Jasper 对中央电视台相当熟悉，他在那里工作了25年。",ops:["agreed「同意的」（agree with）","✓ familiar：be familiar with「熟悉」","consistent「一致的」（be consistent with）","allied「结盟的」（be allied with）"],g:"quite 修饰形容词；for + 时间段。",e:"be familiar with「熟悉」：工作25年自然熟悉。"},
+{q:"____ the fact that the area had been hit by a severe drought, a fairly good harvest was gathered in.",o:["In spite","Despite","In spite that","Despite of"],a:1,cn:"尽管该地区遭受了严重干旱，仍收获了相当好的收成。",ops:["In spite 后缺 of","✓ Despite 是介词，直接接名词 the fact","In spite that：应为 in spite of the fact that","Despite of：despite 后不加 of，错误形式"],g:"that the area... 是 fact 的同位语从句。",e:"despite 是介词直接接名词；in spite 需加 of；despite of 是错误形式。"},
+{q:"The population of Shanghai is about three times as large as ____ of Nanjing.",o:["one","that","it","this"],a:1,cn:"上海的人口大约是南京人口的三倍。",ops:["one 泛指同类中的一个，不特指 the population","✓ that 指代前面的 the population","it 指代「同一个」事物，两地人口是两个概念","this 无此指代用法"],g:"倍数 + as...as「是…的几倍」；同级比较 as large as。",e:"that 指代 the population，避免重复。"},
+{q:"The three hours I spent in the school library ____ my old passion for reading.",o:["brought about","brought over","brought up","brought back"],a:3,cn:"我在学校图书馆度过的那三个小时，唤回了我对阅读的旧日热情。",ops:["brought about「导致」","brought over「带来」","brought up「抚养；提出」","✓ brought back「唤回」"],g:"⚠ 此题与资料一第18题完全相同——高频重复题。",e:"bring back「唤回」旧日热情。（重复题：与资料一第18题相同）"},
+{q:"Don't ____ to let me know if there is anything I can do for you.",o:["reject","prevent","hesitate","refuse"],a:2,cn:"如果有什么我能帮上忙的，请别犹豫尽管告诉我。",ops:["reject 及物动词，不接 to do","prevent 及物动词「阻止」","✓ hesitate to do sth「别犹豫」","refuse to do 意为「拒绝告知」，语义相反"],g:"⚠ 此题与资料一第8题完全相同——高频重复题。",e:"hesitate to do「别犹豫」。（重复题：与资料一第8题相同）"},
+{q:"The flowers in the garden need ____ badly; otherwise they will dry up soon.",o:["watering","to water","watered","to have watered"],a:0,cn:"花园里的花急需浇水，否则很快就会干枯。",ops:["✓ need doing＝need to be done，主动形式表被动","to water：若用不定式应为 need to be watered","watered 过去分词不能单独作此结构宾语","to have watered 完成式不定式，错误"],g:"otherwise「否则」；dry up「干枯」。类似用法的还有 want/require doing。",e:"need doing＝need to be done：「花需要（被）浇水」。"},
+{q:"____ the English examination, I would have gone to the exhibition last Sunday.",o:["In spite of","But for","Because of","As for"],a:1,cn:"要不是英语考试，上周日我就去看展览了。",ops:["In spite of「尽管」，让步义","✓ But for「要不是」，接虚拟语气","Because of「因为」，不接虚拟","As for「至于」"],g:"would have gone 是对过去的虚拟结果；last Sunday 过去时间。",e:"But for「要不是」+ 对过去的虚拟。"},
+{q:"Who is responsible ____ the arrangements?",o:["for make","to make","to making","for making"],a:3,cn:"谁负责安排（这些事宜）？",ops:["for make：介词后接动词原形，错误","to make：responsible 接 for 不接 to","to making：介词搭配错","✓ for making：be responsible for + 动名词"],g:"疑问词 Who 作主语。",e:"be responsible for 中 for 是介词，后接动名词。"},
+{q:"The paint is still wet, ____ !",o:["Be not sure to touch it","Be sure not to touch it","Be sure to not touch it","Don't be sure to touch it"],a:1,cn:"油漆还没干，千万别碰！",ops:["Be not sure to touch：语序错误","✓ Be sure not to do：祈使句的否定式","Be sure to not：not 的位置应在 to 前","Don't be sure to：语义混乱"],g:"祈使句否定式：Don't/Be + not + to do。",e:"祈使句否定：Be sure not to do「千万别做」。"},
+{q:"____ , you must show your ticket to go into the cinema.",o:["No matter whoever you are","Whoever you are","Whomever you are","No matter who are you"],a:1,cn:"无论你是谁，进电影院都必须出示票。",ops:["No matter whoever：no matter 与 whoever 重复","✓ Whoever you are 让步从句，whoever 作从句主语","Whomever 是宾格，从句缺主语时不能用","No matter who are you：从句语序错误"],g:"must 表强制要求。",e:"「无论你是谁」用 whoever 引导让步状语从句。"},
+{q:"You ____ me, because I didn't say that.",o:["must have misunderstood","must misunderstand","must be misunderstood","had to misunderstand"],a:0,cn:"你一定是误解我了，因为我没那么说过。",ops:["✓ must have done：对过去之事的肯定推测","must misunderstand：对现在推测，且动作已发生","must be misunderstood：被动，语义相反","had to：不得不，非推测"],g:"because 从句给出推测的依据。",e:"must have done「过去一定做过」：我没说过 → 你一定误解了。"}
+],
+cloze:{passage:"Friend is better than fortune. Friend is worse than poison in some {21}. The above two statements are opposite and seem to be {22}, but they can be explained {23}: The latter {24} all evil friends who {25} us astray. The former {26} all good friends who drive us towards good.\nMy {27} friend is of course a good friend {28} goodness is shown {29}. He has no bad {30}, as smoking and drinking. He lives frugally. He studies diligently {31} waste his golden time. {32} he {33} his parents and loves his brothers; at school he respects his teachers and {34} his schoolmates. He treats those truly who are {35} him. He never speaks of others' evils {36} boasts of his own merits. {37}, he has all the good characters better than {38}. I can follow him as a model. By his precepts I am {39} the danger of doing a wrong action. By his help I {40} all difficulties.\nIndeed, if I have such a person as my friend, I shall never feel difficult and I shall never know the existence of the word \"failure\".",
+qs:[
+{o:["conditions","cases","times","occasions"],a:1,cn:"朋友比财富更好；朋友在某些情况下比毒药更糟。",ops:["conditions「条件；状况」","✓ in some cases「在某些情况下」，固定搭配","times「时代；次数」","occasions「场合」，常与 on 搭配"],g:"fortune「财富」；poison「毒药」。",e:"in some cases「在某些情况下」。"},
+{o:["unreasonable","unspeakable","unthinkable","unseasonable"],a:0,cn:"上面两句话互相对立，看似不合理，但可以解释如下。",ops:["✓ unreasonable「不合理的」","unspeakable「无法言说的」","unthinkable「不可想象的」","unseasonable「不合时令的」"],g:"the above「上述的」。",e:"两句对立，看似 unreasonable（不合理），但其实可以解释。"},
+{o:["in follow","in following","as follows","as following"],a:2,cn:"（同上句）它们可以这样解释如下。",ops:["in follow 搭配错误","in following 搭配错误","✓ as follows「如下」，固定表达","as following 无此用法"],g:"冒号后引出具体解释。",e:"as follows「如下」是固定表达。"},
+{o:["complies","implies","complied with","complied to"],a:1,cn:"后者（第二句话）指的是把我们引入歧途的坏朋友。",ops:["complies「遵守」（comply with）","✓ implies「指的是、意味着」","complied with 时态与语态错误","complied to 搭配错误"],g:"the latter「后者」/ the former「前者」。",e:"imply「指的是」。"},
+{o:["tempt","lead","push","force"],a:1,cn:"（同上句）这些坏朋友把我们引入歧途。",ops:["tempt「诱惑」（tempt sb to do）","✓ lead：lead sb astray「引入歧途」","push「推」","force「强迫」（force sb to do）"],g:"drive us towards good「促使我们向善」形成对照。",e:"lead sb astray「把某人引入歧途」，固定搭配。"},
+{o:["relates","refers","refers to","directs to"],a:2,cn:"前者指的是驱使我们向善的好朋友。",ops:["relates 需与 to 连用（relate to）","refers 单独的 refer 不表「指的是」","✓ refers to「指的是」","directs to「指向」"],g:"定语从句 who drive us towards good 修饰 good friends。",e:"refer to「指的是」。"},
+{o:["fine","perfect","ideal","new"],a:2,cn:"我的理想朋友当然是一位优点如下所示的好朋友。",ops:["fine「好的」，语义平淡","perfect「完美的」","✓ ideal「理想的」，与下文品格描述呼应","new「新的」"],g:"is of course 系表结构。",e:"my ideal friend「我的理想朋友」。"},
+{o:["one's","who's","whose","his"],a:2,cn:"（同上句）这位好朋友的优点将在下文展示。",ops:["one's 泛指所有格，无从句功能","who's＝who is，后接形容词或动词","✓ whose 引导定语从句且后接名词 goodness","his 是物主代词，不能引导从句"],g:"is shown below 被动语态「在下文展示」。",e:"空格后是名词 goodness → 用 whose。"},
+{o:["down","up","below","under"],a:2,cn:"（同上句）优点如下文所示。",ops:["down「向下」，方向义","up「向上」","✓ below「在下文」，副词作状语","under 是介词，需接宾语"],g:"过去分词短语 shown below。",e:"shown below「在下文展示」。"},
+{o:["likeness","likes","likelihood","liking"],a:3,cn:"他没有抽烟喝酒之类的坏嗜好，生活节俭。",ops:["likeness「相似」","✓ likes：like 作名词复数＝「喜好、爱好」","likelihood「可能性」","liking「喜好」，但常用 have a liking for"],g:"as 此处＝such as「例如」。",e:"bad likes「坏嗜好」：like 的名词复数用法。"},
+{o:["so as to not","in order to not","so as not to","in order that"],a:2,cn:"他勤奋学习，以免浪费自己的黄金时光。",ops:["so as to not：not 位置错误","in order to not：not 位置错误","✓ so as not to「以免、为了不」","in order that 后须接从句"],g:"diligently「勤奋地」。",e:"否定式：so as not to / in order not to。"},
+{o:["In the home","At the home","In home","At home"],a:3,cn:"在家他尊敬父母、爱护兄弟；在学校尊敬老师、与同学友爱互助。",ops:["In the home：home 前不加冠词","At the home：同上","In home：介词搭配错误","✓ At home「在家」，固定搭配"],g:"分号连接并列分句。",e:"at home 固定搭配，home 前不加冠词。"},
+{o:["admires","is interested in","in fond of","honors"],a:3,cn:"（同上句）在家他尊敬父母。",ops:["admires「钦佩」，与「父母」搭配不如 honor 贴切","is interested in「对…感兴趣」，语义不合","in fond of 拼写错误，应为 is fond of","✓ honors「尊敬」，与 respects 并列"],g:"loves his brothers 与 honors 并列。",e:"honor「尊敬」父母；C 项是 is fond of 的拼写陷阱。"},
+{o:["sympathizes with","sympathizes about","sympathizes to","sympathizes on"],a:0,cn:"（同上句）在学校他尊敬老师、体谅同学。",ops:["✓ sympathizes with「同情、体谅」，固定搭配","sympathizes about 搭配错误","sympathizes to 搭配错误","sympathizes on 搭配错误"],g:"respects...and sympathizes... 并列谓语。",e:"sympathize with「与…共情」。"},
+{o:["real to","true with","true to","true on"],a:2,cn:"他真诚对待那些真诚待他的人。",ops:["real to 搭配错误","true with 搭配错误","✓ true to：be true to sb「对某人真诚」","true on 搭配错误"],g:"treats those truly 副词修饰动词；who are true to him 是定语从句。",e:"be true to「对…真诚」。"},
+{o:["not","nor","or","but"],a:1,cn:"他从不讲别人的坏话，也不夸耀自己的长处。",ops:["not 不能并列连接两个谓语","✓ never...nor「从不…也不…」","or 用于肯定句的并列","but 表转折，语义不合"],g:"speak of「谈论」；boast of「自夸」。",e:"never...nor...「从不…也不…」。"},
+{o:["Least of all","In all","In words","In a word"],a:3,cn:"总之，他拥有胜过我的所有好品格。",ops:["Least of all「尤其不」","In all「总共」","In words「口头上」","✓ In a word「总之」"],g:"follow him as a model「以他为榜样」。",e:"in a word「总之」，总结全文。"},
+{o:["mine","our","my","ours"],a:0,cn:"（同上句）他的品格比我的更好。",ops:["✓ mine＝my characters，比较对象对等","our 人称与主语 I 不符","my 是形容词性，不能单独使用","ours 指我们的（品格），人称不符"],g:"比较对象须同类对等：his characters vs mine。",e:"better than mine「比我的（品格）」。"},
+{o:["award of","awaring","aware of","aware with"],a:2,cn:"通过他的教导，我能察觉做错事的危险。",ops:["award of：award 是「奖品」，形近干扰","awaring 无此词形","✓ aware of：be aware of「意识到、察觉到」","aware with 搭配错误"],g:"by his precepts「借助他的教诲」。",e:"be aware of「意识到」。"},
+{o:["pardon from","am free from","excuse from","am derived from"],a:1,cn:"在他的帮助下，我能摆脱一切困难。",ops:["pardon from 搭配错误","✓ am free from：be free from「免于、摆脱」","excuse from：应为 excuse sb from","am derived from「源于」，语义不合"],g:"Indeed 表强调；never know the existence of failure 呼应。",e:"be free from「摆脱」一切困难。"}
+]},
+reading:[
+{passage:"To us it seems so natural to put up an umbrella to keep the water off when it rains. But actually the umbrella was not invented as protection against rain. It was first used as a shade against the sun.\nNobody knows who first invented it, but the umbrella was used in very ancient times. Probably the first to use it were the Chinese, way back in the eleventh century B.C...\nWe know that the umbrella was also used in ancient Egypt and Babylon as a sunshade. And there was a strange thing connected with its use; it became a symbol of honor and authority. In the Far East in ancient times, the umbrella was allowed to be used only by royal people or by those in high office.\nIn Europe, the Greeks were the first to use the umbrella as a sunshade. And the umbrella was in common use in ancient Greece. But it is believed that the first persons in Europe to use the umbrellas as protection against the rain were the ancient Romans.\nDuring the Middle Ages, the use of the umbrella practically disappeared. Then it appeared again in Italy in 16th century. And again it became a symbol of power and authority.\nUmbrellas have not changed much in style during all this time, though they have become much lighter in weight. It wasn't until the twentieth century that women's umbrellas began to be made in a variety of colors.",
+qs:[
+{q:"The first use of umbrella was ____ .",o:["protection against rain","a shade against the sun","a symbol of power","a symbol of honor"],a:1,cn:"雨伞最初用作____。",ops:["防雨——发明初衷与此相反","✓ 遮阳（a shade against the sun）","权力象征——后来的演变","荣誉象征——同 C"],e:"首段末句：It was first used as a shade against the sun。"},
+{q:"____ were regarded as the people who first used umbrellas.",o:["Romans","Greeks","Chinese","Europeans"],a:2,cn:"____被认为是最早使用伞的人。",ops:["Romans：罗马人是欧洲最早用伞挡雨的","Greeks：希腊人是欧洲最早用伞遮阳的","✓ Chinese：中国人最早使用（公元前11世纪）","Europeans：统称，范围过宽"],e:"第二段：Probably the first to use it were the Chinese。"},
+{q:"The umbrella was used only by royal people or those in high office ____ .",o:["in Europe in the eighteenth century","in ancient Egypt and Babylon","in the Far East in ancient times","during the Middle Ages"],a:2,cn:"在____，伞只允许皇室或高官使用。",ops:["十八世纪的欧洲——未提及","古埃及和巴比伦——那里只说用作遮阳","✓ 古代远东（In the Far East in ancient times）","中世纪——那时伞几乎消失"],e:"第三段末句：在古代远东只有皇室和高官能用伞。"},
+{q:"Which of the following may be the best title for the passage?",o:["When Was the Umbrella Invented","The Role of Umbrella in History","The Colors and Shapes of Umbrella","Who Needed Umbrella First"],a:1,cn:"以下哪项可能是本文的最佳标题？",ops:["伞何时发明——文中明说无人知晓","✓ 伞在历史上的角色（演变脉络）","伞的颜色和形状——仅末段细节","谁最早需要伞——以偏概全"],e:"主旨题：全文按时间线讲雨伞角色的演变。"}
+]},
+{passage:"The first year of school in America, known as kindergarten, usually begins between the ages of five and six. Among rich countries such a late start is very strange. President Obama believes it is an economic and social problem; his education secretary goes as far as to say that it is \"morally wrong\". This statement has some support, as it is clear from research into vocabulary that youngsters from poor families enter kindergarten well behind those from rich families — a disadvantage that usually lasts a lifetime. Children from households on welfare knew 525 words by the age of three, while the children of professionals had mastered 1,116.\nPre-school can help close this gap. So in a speech last month, Mr. Obama called for a partnership between the federal government and the states to expand it to every American child. It later became known that \"every\" meant those who come from families with incomes of up to 200% above the poverty line — equal to an income of $47,000 for a family of four.\nSome studies also follow the effects of early learning over lifetimes, such as its effect on crime rates and other factors that may eventually burden society. Critics have singled out a government scheme called Head Start, created in 1965, which provides poor households with a range of services including school-based early education.",
+qs:[
+{q:"Kindergarten in rich countries other than America usually begins at the age of ____ .",o:["eight","seven","six","four"],a:3,cn:"除美国以外的富裕国家，幼儿园通常从____岁开始。",ops:["eight：比美国更晚，矛盾","seven：同上","six：与美国持平，不算更早","✓ four：美国5-6岁已算「很晚」→ 他国更早，仅四岁符合"],e:"推理题：such a late start is very strange → 其他发达国家入学更早。"},
+{q:"According to the passage, which of the following is TRUE?",o:["Poor pre-school kids have a larger vocabulary than rich kids.","President Obama believes that early education can solve all economic and social problems.","Rich pre-school kids have a richer vocabulary than poor kids.","President Obama's education secretary thinks it is morally wrong to let kids start kindergarten early."],a:2,cn:"根据文章，下列哪项是正确的？",ops:["贫困家庭孩子词汇量更大——数字正好相反","奥巴马认为早教能解决所有问题——过于绝对","✓ 富裕家庭孩子词汇量更大（1116 对 525）","教育部长认为「早上学」错误——曲解，错的是「太晚开始」"],e:"细节题：专业人士家庭孩子3岁掌握1116词，贫困家庭525词。"},
+{q:"The phrase 'single out' in the last paragraph means ____ .",o:["choose","think about","count","depend on"],a:0,cn:"最后一段中的 single out 意为____。",ops:["✓ choose「挑选出」","think about「考虑」","count「数数」","depend on「依赖」"],e:"词义猜测：批评者们挑选出 Head Start 项目来批评。"},
+{q:"Which of the following is an appropriate title for this passage?",o:["Secondary Education","Pre-school Education","Poor Kids' Education","Rich Kids' Education"],a:1,cn:"以下哪项是本文合适的标题？",ops:["Secondary Education「中等教育」——偏离主题","✓ Pre-school Education「学前教育」","Poor Kids' Education——片面","Rich Kids' Education——片面"],e:"主旨题：全文讨论学前教育的重要性与普及。"}
+]}
+],
+trans:[
+{en:"We will send you the book as soon as possible.",zh:"我们将尽快把这本书寄给你们。",e:"as soon as possible「尽快」，固定短语。"},
+{en:"Believe in yourself, and you'll win the speech contest.",zh:"只要相信你自己，你就会赢得演讲比赛。",e:"「祈使句 + and + 陈述句」结构，祈使句相当于条件句；believe in oneself 相信自己。"},
+{en:"It is of great importance for college students to take part in social practice.",zh:"大学生参加社会实践是很重要的。",e:"be of great importance＝very important；take part in 参加；social practice 社会实践。"},
+{en:"If it hadn't been for your help, I couldn't have made such great progress in English.",zh:"要是没有你的帮助，我就不可能在英语方面取得这样大的进步。",e:"对过去的虚拟语气：if + had done，主句 couldn't have done；make progress in 在……取得进步。"},
+{en:"We strive for perfection but sometimes have to accept something less than perfect.",zh:"我们力求完美，但有时不得不接受不那么完美的事。",e:"strive for 力求、奋斗争取；have to 不得不；less than perfect 不那么完美。"}
+]},
+{name:"复习资料三",
+p1:[
+{q:"My friend told me the house I would rent was small and contained too ____ .",o:["much furniture","much furnitures","many furniture","many furnitures"],a:0,cn:"朋友告诉我，我要租的房子很小，家具太多了。",ops:["✓ furniture 不可数名词，用 much 修饰","furnitures：furniture 无复数形式","many furniture：many 修饰可数名词","many furnitures：双重错误"],g:"I would rent 是省略 that 的定语从句修饰 the house。",e:"furniture（家具）不可数：too much furniture。"},
+{q:"Someone is knocking at the door, but whom can ____ be?",o:["one","he","it","she"],a:2,cn:"有人在敲门，会是谁呢？",ops:["one 泛指「某个人/物」，不用于此猜测句型","he 指明确的男性，敲门者身份不明","✓ it 指身份不明的人（谁在敲门？）","she 同 he，指明确的女性"],g:"knock at the door「敲门」。",e:"身份不明的人敲门，习惯用 it 指代：whom can it be??"},
+{q:"—What about having a picnic at the beach this Saturday? —It ____ good.",o:["smells","feels","sounds","looks"],a:2,cn:"——这周六去海滩野餐怎么样？——听起来不错。",ops:["smells「闻起来」","feels「摸起来/感觉」","✓ sounds「听起来」——对提议的评价","looks「看起来」"],g:"What about...? 提建议的句型；It 指这个提议。",e:"对提议的评价「听起来不错」→ sounds good。"},
+{q:"In the past 40 years of reform and opening up, China ____ great progress.",o:["have made","has made","had made","having made"],a:1,cn:"改革开放40年来，中国取得了巨大进步。",ops:["have made：主语 China 是单数","✓ has made：in the past 40 years 是现在完成时标志","had made：过去完成时无依据","having made：非谓语不能单独作谓语"],g:"in the past / in the last + 时间段 → 现在完成时。",e:"in the past 40 years 是现在完成时标志；China 单数 → has made。"},
+{q:"Our companies need to employ ____ workers than before.",o:["as excellent","excellent","most excellent","more excellent"],a:3,cn:"我们公司需要雇用比以前更优秀的工人。",ops:["as excellent：缺第二个 as，无法搭配","excellent：原级，与句末 than 冲突","most excellent：最高级不与 than 连用","✓ more excellent：比较级 + than"],g:"employ＝hire「雇用」。",e:"句末 than before → 用比较级 more excellent。"},
+{q:"The children ____ aloud when the teacher came in.",o:["was reading","were reading","read","have read"],a:1,cn:"老师进来时，孩子们正在大声朗读。",ops:["was reading：children 是复数，主谓不一致","✓ were reading：过去进行时 + 复数","read：一般过去时，无「正在进行」义","have read：现在完成时与 when 从句不搭"],g:"when the teacher came in 是过去时间锚点 → 过去进行时。",e:"「老师进来时正在朗读」→ 过去进行时 were reading。"},
+{q:"Our teaching building ____ next month.",o:["will be completed","completes","has completed","was completed"],a:0,cn:"我们的教学楼将于下个月完工。",ops:["✓ will be completed：一般将来时 + 被动","completes：主动且表习惯性动作","has completed：主动 + 完成时","was completed：过去被动，与 next month 矛盾"],g:"next month 是将来时间标志；楼是「被完工」。",e:"next month 表将来；教学楼「被完成」→ will be completed。"},
+{q:"Johnson will phone his girlfriend as soon as he ____ at the airport.",o:["will arrive","is arriving","arrives","arrived"],a:2,cn:"Johnson 一到机场就会给女朋友打电话。",ops:["will arrive：时间状语从句中不用将来时","is arriving：进行表将来仅限部分语境，此处惯用一般现在时","✓ arrives：一般现在时代替将来时","arrived：过去时与主句矛盾"],g:"as soon as「一…就…」，主将从现。",e:"时间状语从句用一般现在时代替将来时。"},
+{q:"There is ____ letter 'h' in the word 'hour', but ____ 'h' doesn't make a sound.",o:["a; a","a; the","the; an","an; the"],a:3,cn:"单词 hour 里有一个字母 h，但这个 h 不发音。",ops:["a; a：h 以元音音素开头应用 an","a; the：同上，首词冠词错误","the; an：顺序与用法全反","✓ an（/eɪtʃ/ 元音音素开头）；the（第二次提及）"],g:"判断 a/an 看发音（音素）而非字母；再提同一事物用 the。",e:"字母 h 发音 /eɪtʃ/ 以元音开头 → an；第二次提到用 the。"},
+{q:"John spent a lot of time ____ to his friends why he came late.",o:["explain","explained","to explain","explaining"],a:3,cn:"John 花了很多时间向朋友们解释他为什么迟到。",ops:["explain 动词原形，不能作宾语","explained 过去式，句法错误","to explain：spend...doing 固定搭配","✓ explaining：spend time (in) doing sth"],g:"why he came late 是 explaining 的宾语从句。",e:"spend time doing sth「花时间做某事」。"},
+{q:"The old man came upstairs ____ a stick for support.",o:["held","holding","being holding","was holding"],a:1,cn:"老人拄着拐杖上楼。",ops:["held 过去分词，表被动义（拐杖不是被老人举着走）","✓ holding 现在分词作伴随状语","being holding 无此形式","was holding 会造成双谓语"],g:"for support 作目的状语「以作支撑」。",e:"现在分词 holding 作伴随状语：拄着拐杖上楼。"},
+{q:"On our website you will find a list of problems ____ at our next week's meeting.",o:["discuss","discussing","to be discussed","discussed"],a:2,cn:"在我们网站上你会看到将在下周会议上讨论的问题清单。",ops:["discuss 主动原形，无被动义","discussing 主动进行","✓ to be discussed：不定式表将来 + 被动","discussed 过去分词表已完成的被动"],g:"a list of「…的清单」。",e:"「下周将要讨论的问题」→ 不定式被动 to be discussed。"},
+{q:"Whether you come ____ not will be up to you.",o:["so","and","or","but"],a:2,cn:"你来不来由你自己决定。",ops:["so 无此搭配","and 无此搭配","✓ whether...or not 固定搭配","but 无此搭配"],g:"be up to sb「由某人决定」。",e:"whether...or not「是否」，固定搭配。"},
+{q:"Most of the goods ____ in this store are made by our company.",o:["sell","sold","selling","be sold"],a:1,cn:"这家店出售的大部分商品都是我们公司生产的。",ops:["sell 主动且形式错误","✓ sold 过去分词作后置定语，表被动「被售的」","selling 主动进行","be sold 不能作后置定语"],g:"Most of + 复数名词作主语，谓语用复数 are made。",e:"goods 与 sell 是被动关系 → sold 作后置定语。"},
+{q:"Our teacher suggests that we ____ in the classroom earlier.",o:["should be","shall be","are","were"],a:0,cn:"老师建议我们早点到教室。",ops:["✓ (should+) 动词原形的虚拟语气","shall be 陈述语气","are 一般现在时，非虚拟","were 过去式，与虚拟式不符"],g:"suggest「建议」→ 宾语从句虚拟，should 可省略。",e:"suggest 表示「建议」时，从句用 (should+) 动词原形。"},
+{q:"____ you want some samples of our products, you might contact our sales manager.",o:["While","If","Until","Although"],a:1,cn:"如果你想要我们产品的样品，可以联系销售经理。",ops:["While「虽然；当…时」","✓ If「如果」，条件关系","Until「直到」","Although「尽管」"],g:"might 表委婉建议；sales manager「销售经理」。",e:"条件句：想要样品 → 联系销售经理。"},
+{q:"It was such a strong storm ____ it caused great damage to this area.",o:["because","as","since","that"],a:3,cn:"那场暴风雨如此猛烈，给该地区造成了巨大损失。",ops:["because「因为」，逻辑颠倒","as：such...as 后接成分不同，此处是结果","since「因为」","✓ that：such...that「如此…以至于」"],g:"cause damage to「对…造成损害」。",e:"such...that「如此…以至于」引导结果状语从句。"},
+{q:"No sooner had he jumped out of the car ____ it blew up.",o:["than","while","when","as"],a:0,cn:"他刚跳下车，车就爆炸了。",ops:["✓ than：no sooner...than 固定搭配","while「与…同时」，与过去完成时不搭","when：hardly...when 才用 when","as 无此搭配"],g:"No sooner 置句首 → 过去完成时倒装 had he jumped。",e:"no sooner...than「一…就…」。"},
+{q:"It was not until last month ____ the machine we ordered arrived.",o:["which","what","that","where"],a:2,cn:"直到上个月，我们订购的机器才到货。",ops:["which 引导定语从句，此处是强调句","what 不能用于强调句","✓ that：It was not until...that 强调句型","where 地点关系，不符"],g:"we ordered 是省略 which/that 的定语从句修饰 machine。",e:"强调句型：It was not until...that...。"},
+{q:"Go to the evening party with me tonight, ____ ?",o:["can you","don't you","do you","will you"],a:3,cn:"今晚陪我去的晚会，好吗？",ops:["can you：邀请/请求多用 will you","don't you：祈使句反问不用否定助动结构","do you：祈使句反问不用 do","✓ will you：祈使句的反义疑问固定用 will you"],g:"祈使句本身无时态人称，反义疑问用 will/won't you。",e:"祈使句的反义疑问句用 will you。"}
+],
+cloze:{passage:"It's been five years since I came to America. The year before I arrived, every weekend I was woken up by \"Spring River in the Flower Moon Night\", {21} by my mother on a guzheng. My mom was always enchanted by the beauty of Chinese traditional music, {22} she never had the chance to learn a {23}. In 2009, she got a guzheng from a friend and has been playing and performing ever since. Sometimes when I {24} her, I search for the songs she used to play on the Internet. I {25} expected to hear them here in Boston. Earlier this year, as I {26} a new apartment, I met Zhantao Lin, the director of the Boston Chinese Musicians Association. At Lin's house, I heard the {27} of the erhu. Lin later {28} me to his music team and I heard them rehearse for a {29} this year. It was beautiful and powerful and it {30} brought me back to my hometown in China. {31} is also part of Lin's daily routine. Besides performing, he passed on his love of the erhu to his {32}. I went to one of Lin's classes and met 9-year-old London Turk. I asked him {33} he chose to learn the erhu. \"It's much {34} to learn than the violin,\" he said. Perhaps Turk hasn't really started to {35} the beauty of the erhu, but his mother has always loved the instrument. \"There are so many beautiful things in Chinese {36}, the music, the language, and the art. So we just try our best to let him have a {37} to explore it,\" she said. I {38} my mom for giving me a chance to immerse myself in the Chinese musical world. The music makes me feel relaxed. It can also {39} me of my homesickness. If you listen to one piece, you will {40} its uniqueness, power, and beauty.",
+qs:[
+{o:["directed","played","written","invented"],a:1,cn:"我来美国的前一年，每个周末都会被妈妈用古筝弹奏的《春江花月夜》唤醒。",ops:["directed「指挥、指导」","✓ played「弹奏」，过去分词作后置定语（曲子是被弹的）","written「谱写」，与 on a guzheng 矛盾","invented「发明」"],g:"be woken up by「被…唤醒」。",e:"played by my mother 过去分词作后置定语。"},
+{o:["but","and","or","so"],a:0,cn:"妈妈一直着迷于中国传统音乐之美，却从未有机会学一门乐器。",ops:["✓ but 转折：着迷 vs 没机会学","and 顺承，逻辑不合","or 选择","so 因果"],g:"be enchanted by「被…迷住」。",e:"前后转折 → but。"},
+{o:["instrument","trade","language","trick"],a:0,cn:"（同上句）却从未有机会学一门乐器。",ops:["✓ instrument「乐器」，与后文 guzheng、erhu 呼应","trade「手艺；贸易」","language「语言」","trick「把戏；技巧」"],g:"get...from a friend「从朋友那里得到」。",e:"learn an instrument「学一门乐器」。"},
+{o:["mention","chase","miss","call"],a:2,cn:"有时我想念她时，就在网上搜索她以前常弹的曲子。",ops:["mention「提及」","chase「追逐」","✓ miss「想念」","call「打电话」，与后文搜歌矛盾"],g:"used to play「过去常常弹」。",e:"想念妈妈时搜她弹过的曲子 → miss。"},
+{o:["only","still","already","never"],a:3,cn:"我从未想过会在波士顿听到这些曲子。",ops:["only「仅仅」","still「仍然」","already「已经」","✓ never「从未」"],g:"here 指 Boston。",e:"从没想过能在这里听到 → never expected。"},
+{o:["looked after","looked at","looked for","looked in"],a:2,cn:"今年早些时候，我找新公寓时遇到了 Zhantao Lin——波士顿华人音乐家协会会长。",ops:["looked after「照顾」","looked at「看」","✓ looked for「寻找」","looked in「顺路拜访」"],g:"the director of...「…的会长」。",e:"look for a new apartment「找新公寓」。"},
+{o:["story","sound","name","cry"],a:1,cn:"在 Lin 的家里，我听到了二胡的声音。",ops:["story「故事」","✓ sound「声音」","name「名字」","cry「哭声」"],g:"erhu 即「二胡」。",e:"the sound of the erhu「二胡的声音」。"},
+{o:["followed","recommended","guided","introduced"],a:3,cn:"Lin 后来把我介绍进他的乐队，我听他们为今年的演出排练。",ops:["followed「跟随」","recommended 应为 recommend sb as 结构","guided「引导」（guide sb to do）","✓ introduced：introduce sb to...「介绍…进入」"],g:"rehearse「排练」。",e:"introduce me to his music team。"},
+{o:["performance","competition","game","conference"],a:0,cn:"（同上句）为今年的演出排练。",ops:["✓ performance「演出」，与 rehearse 呼应","competition「比赛」","game「游戏」","conference「会议」"],g:"beautiful and powerful 并列形容词。",e:"排练的目的是演出 → performance。"},
+{o:["secretly","recently","nearly","suddenly"],a:3,cn:"音乐美妙而有力，突然把我带回了中国的老家。",ops:["secretly「暗地里」","recently「最近」","nearly「几乎」","✓ suddenly「突然」"],g:"bring back「带回」。",e:"音乐「突然」把他带回故乡。"},
+{o:["Reading","Teaching","Composing","Exercising"],a:1,cn:"教学也是 Lin 日常的一部分。",ops:["Reading「阅读」","✓ Teaching「教学」，下文去上他的课印证","Composing「作曲」","Exercising「锻炼」"],g:"daily routine「日常安排」；besides「除…之外（还）」。",e:"Besides performing（除了演出）→ 教学 Teaching。"},
+{o:["workmates","friends","students","parents"],a:2,cn:"除了演出，他把对二胡的热爱传授给学生。",ops:["workmates「同事」","friends「朋友」","✓ students「学生」，下文去他班上印证","parents「父母」"],g:"pass on...to...「把…传给…」。",e:"把热爱传给学生 → students。"},
+{o:["how","where","why","when"],a:2,cn:"我问他为什么选择学二胡。",ops:["how「如何」","where「哪里」","✓ why「为什么」，他的回答正是在说原因","when「何时」"],g:"choose to do「选择做」。",e:"答语解释原因 → 问的是 why。"},
+{o:["easier","longer","safer","smarter"],a:0,cn:"「它比小提琴好学多了。」他说。",ops:["✓ easier：句末 than the violin → 比较级","longer「更长」","safer「更安全」","smarter「更聪明」"],g:"直接引语用引号。",e:"much + 比较级 + than。"},
+{o:["consider","enjoy","ignore","expect"],a:1,cn:"或许 Turk 还没真正开始欣赏二胡之美，但他妈妈一直热爱这件乐器。",ops:["consider「考虑」","✓ enjoy「欣赏」","ignore「忽视」，语义相反","expect「期待」"],g:"has always loved 现在完成时。",e:"还没开始「欣赏」二胡之美 → enjoy。"},
+{o:["medicine","economy","literature","culture"],a:3,cn:"「中国文化里有这么多美好的东西：音乐、语言、艺术。」",ops:["medicine「医学」","economy「经济」","literature「文学」","✓ culture「文化」，后文列举音乐、语言、艺术"],g:"so many + 复数名词。",e:"音乐、语言、艺术属于文化 → culture。"},
+{o:["chance","place","duty","desire"],a:0,cn:"「所以我们尽力给他一个探索的机会。」她说。",ops:["✓ chance「机会」，a chance to explore","place「地方」","duty「责任」","desire「欲望」"],g:"try one's best「尽力」。",e:"给他探索的机会 → chance。"},
+{o:["forgive","blame","thank","beg"],a:2,cn:"我感谢妈妈让我有机会沉浸在中国音乐世界里。",ops:["forgive「原谅」","blame「责备」","✓ thank：thank sb for...「为…感谢某人」","beg「恳求」"],g:"immerse myself in「使自己沉浸于」。",e:"thank my mom for giving me...。"},
+{o:["remind","cure","inform","warn"],a:1,cn:"音乐还能治愈我的思乡之情。",ops:["remind...of「提醒」","✓ cure：cure sb of sth「治好某人的…」","inform...of「通知」","warn...of「警告」"],g:"make me feel relaxed 使我放松。",e:"cure sb of sth「治愈某人的…」。"},
+{o:["explain","ensure","express","experience"],a:2,cn:"（本句为上句延续）如果你听上一曲，你就会体验到它的独特、力量与美。",ops:["explain「解释」","ensure「确保」","express「表达」","✓ experience「体验」"],g:"if 条件句中主句用 will。",e:"you will experience「你将体验到」。"}
+]},
+reading:[
+{passage:"I'm very thankful to the cat and it always makes me think of the time I was with him.\nFive years ago, when my father was dying, I travelled a thousand miles from home to be with him in his last days. I felt very sad and it was one of the most difficult and painful times in my life. After he passed away, I stayed alone in his flat. There were so many things to deal with. I was lonely and I hated the silence of the flat.\nBut one evening the silence was broken: I heard crying outside. I opened the door to find a little cat on the steps. He was thin and poor. He looked the way I felt. I brought him inside and gave him a can of fish. He ate it and then almost immediately fell asleep.\nThe next morning I checked with neighbors and learned that the cat had been left by his owner. His owner had moved out, so the little cat was there all alone, just like I was. As I walked back to the flat, I tried to work out what to do with him. Having something else to take care of seemed like the very last thing I needed. But as soon as I opened the flat door, he ran to me and jumped into my arms. It was clear from that moment that he didn't want to go anywhere. I started calling him Willis in order to remember my father's best friend.\nFrom then on, things grew easier. With Willis in my lap, time seemed to pass much faster. When the time finally came for me to return home, I had to decide what to do about Willis. There was absolutely no way I would leave without him.\nIt's been five years since my father died. Over the years, several people have said how nice it was of me to rescue the cat. But I know that we rescued each other. I may have given him a home but he gave me something greater.",
+qs:[
+{q:"The writer felt ____ after her father passed away.",o:["happy","lonely","nervous","relaxed"],a:1,cn:"父亲去世后，作者感到____。",ops:["happy「开心的」","✓ lonely「孤独的」（I was lonely and I hated the silence）","nervous「紧张的」","relaxed「放松的」"],e:"细节题：I was lonely and I hated the silence of the flat。"},
+{q:"As soon as the writer saw the cat, she ____ .",o:["had pity on him","showed no interest in him","felt very frightened","felt angry with his crying"],a:0,cn:"作者一见到那只猫，就____。",ops:["✓ 对它心生怜悯（它又瘦又可怜，像极了自己）","对它毫无兴趣","感到非常害怕","对它的哭声感到生气"],e:"He looked the way I felt，随即把它抱进屋喂鱼 → 怜悯。"},
+{q:"The cat rescued the writer by ____ .",o:["telling her what real life was","helping her tidy the flat every day","helping her finish the tasks on time","making her feel better in her hard times"],a:3,cn:"这只猫通过____拯救了作者。",ops:["告诉她什么是真正的生活","每天帮她收拾公寓","帮她按时完成任务","✓ 在她的艰难时期让她好受些"],e:"结尾 we rescued each other：它的陪伴让时间过得更快。"},
+{q:"What's the best title for the passage?",o:["A lovely cat","My father and a cat","What I got from a cat","How to take care of a cat"],a:2,cn:"这篇文章的最佳标题是什么？",ops:["A lovely cat「一只可爱的猫」——停留表面","My father and a cat「我的父亲和一只猫」——并列失当","✓ What I got from a cat「我从一只猫那里得到了什么」","How to take care of a cat「如何照顾猫」——离题"],e:"主旨题：结尾点题——我给了它一个家，它给了我更宝贵的东西。"}
+]},
+{passage:"My friend Matt and I arrived at the Activity Centre on Friday evening. The accommodation wasn't wonderful, but we had everything we needed (beds, blankets, food), and we were pleased to be out of the city and in the fresh air.\nOn Saturday morning we met the other ten members of our group. Cameron had come along with two friends, Kevin and Simon, while sisters Carole and Lynn had come with Amanda. There were some other members I didn't know. We had come from different places and none of us knew the area.\nWe knew we were going to spend the weekend outdoors, but none of us was sure exactly how. Half of us went to the caves first. Climbing out was harder than going in, but after a good deal of pushing, we were out at last. Though we were covered with mud, we were pleased and excited by what we'd done.",
+qs:[
+{q:"The writer spent the Saturday morning ____ .",o:["rock-climbing","sleeping","meeting friends","caving"],a:3,cn:"作者周六上午在____。",ops:["rock-climbing「攀岩」——未提及","sleeping「睡觉」","meeting friends「见朋友」——只是开场","✓ caving「洞穴探险」（went to the caves）"],e:"细节题：Half of us went to the caves first。"},
+{q:"There were ____ members in all in the writer's group.",o:["6","8","10","12"],a:3,cn:"作者的小组总共有____名成员。",ops:["6","8","10——这是「其他成员」的人数","✓ 12：Matt 和我（2人）+ the other ten members（10人）"],e:"数字题：2 + 10 = 12。"},
+{q:"The writer thought her weekend was ____ .",o:["interesting","relaxing","frightening","unpleasant"],a:0,cn:"作者觉得她的周末____。",ops:["✓ interesting「有趣的」（pleased and excited）","relaxing「放松的」","frightening「可怕的」","unpleasant「不愉快的」"],e:"推理题：满身泥却「又开心又兴奋」→ 有趣。"},
+{q:"This passage mainly talks about ____ .",o:["the writer's friends at the Activity Centre","the writer's experience at the Activity Centre","outdoor sports at the Activity Centre","how to go rock-climbing and caving"],a:1,cn:"这篇文章主要讲____。",ops:["作者在活动中心的朋友们——片面","✓ 作者在活动中心的经历","活动中心的户外运动——非叙述主体","如何攀岩和探洞——未展开"],e:"主旨题：按时间顺序记叙作者在活动中心的经历。"}
+]}
+],
+trans:[
+{en:"It's very important for human beings to pay attention to ocean exploration.",zh:"对人类来说，关注海洋探索是非常重要的。",e:"It is + adj. + for sb to do sth 结构；pay attention to 关注。"},
+{en:"Seeing English films can improve your English listening and speaking ability.",zh:"看英语电影可以提高你的英语听说能力。",e:"动名词短语 Seeing English films 作主语；listening and speaking ability 听说能力。"},
+{en:"If excellent workers often get encouragement, they will work even harder.",zh:"如果优秀的员工经常得到鼓励，他们会更加努力地工作。",e:"if 条件句（主句用将来时，从句用一般现在时）；encouragement 鼓励。"},
+{en:"Young people should be independent instead of depending on their parents.",zh:"年轻人应该独立，而不是依赖父母。",e:"instead of 而不是；be independent 独立；depend on 依赖。"},
+{en:"The Chinese people will always support all those who love world peace.",zh:"中国人民永远支持所有爱好世界和平的人们。",e:"who love world peace 是定语从句修饰 those；support 支持。"}
+]},
+{name:"复习资料四",
+p1:[
+{q:"The little girl is waiting for her parents on ____ side of the street.",o:["other","the other","another","one other"],a:1,cn:"小女孩在街道的另一边等她的父母。",ops:["other 需与 the 或复数名词连用","✓ the other：街道只有两边，「两者中的另一边」","another 泛指三者以上中的另一个","one other 无此搭配"],g:"wait for「等待」。",e:"街道两边 → 「另一边」用 the other side。"},
+{q:"The Smith's family, which ____ rather a large one, ____ very fond of their old houses.",o:["were, were","was, was","were, was","was, were"],a:3,cn:"史密斯家是个相当大的家庭，家庭成员都非常喜欢他们的老房子。",ops:["were, were：从句 which 指「整个家庭」应用单数","was, was：主句指「家庭成员」应用复数","were, was：两处全反","✓ was（family 作整体）；were（family 指成员）"],g:"集体名词两面性：作整体看是单数，指成员看是复数；their old houses 印证主句指成员。",e:"定语从句 which 指 family 整体（a large one）→ was；主句谓语指家庭成员 → were。"},
+{q:"The assignments are too hard. I can't ____ the work.",o:["keep up with","catch up with","come up with","put up with"],a:0,cn:"作业太难了，我跟不上（进度）。",ops:["✓ keep up with「跟上（进度）」","catch up with「赶上」，指落后之后再追","come up with「想出（主意）」","put up with「忍受」"],g:"too hard「太难」。",e:"keep up with the work「跟上工作进度」。"},
+{q:"Many working parents have difficulty ____ their children to kindergartens in the morning.",o:["send","to send","in sending","for sending"],a:2,cn:"很多上班族父母早上送孩子去幼儿园有困难。",ops:["send 动词原形","to send：difficulty 后不接不定式","✓ in sending：have difficulty (in) doing sth","for sending：介词用错"],g:"working parents「上班族父母」。",e:"have difficulty (in) doing sth。"},
+{q:"Since 2022, many new teaching buildings ____ in our college.",o:["are built","were built","have been built","will be built"],a:2,cn:"自2022年以来，我们学院建起了许多新教学楼。",ops:["are built 一般现在被动，无「已完成」义","were built 过去被动，与 since 矛盾","✓ have been built：现在完成时 + 被动","will be built 将来被动，时态不符"],g:"Since + 时间点 → 现在完成时；楼是「被建」。",e:"Since 2022 → have been built。"},
+{q:"I'm sorry I forget ____ your umbrella I borrowed last week.",o:["returning","having returning","to return","to be returned"],a:2,cn:"抱歉，我忘了归还上周借你的伞。",ops:["returning：forget doing 指「忘记做过」，但伞还没还，矛盾","having returning 形式错误","✓ to return：forget to do「忘记去做（还没做）」","to be returned 不定式被动，无依据"],g:"I borrowed last week 是省略 that 的定语从句修饰 umbrella。",e:"forget to do「忘记去做」；伞未还 → to return。"},
+{q:"The factory produced ____ cars this year than those of last year.",o:["as many","much","many","more"],a:3,cn:"这家工厂今年生产的小汽车比去年多。",ops:["as many 缺第二个 as，无法构成 as...as","much 不修饰可数复数","many 原级，与句末 than 冲突","✓ more：比较级 + than"],g:"those of last year 中 that/those 指代 cars。",e:"句末 than → 比较级 more。"},
+{q:"He agreed to lend me the money ____ I promised to pay the money back next week.",o:["as if","if","that","while"],a:1,cn:"如果我答应下周还钱，他就同意借我钱。",ops:["as if「好像」","✓ if「如果」，条件关系","that 无条件含义","while「而；当…时」"],g:"lend sb sth「借给某人某物」；pay back「偿还」。",e:"条件句：如果答应还钱就借 → if。"},
+{q:"____ 5G may bring benefits to us, some users care more about its potential health risks.",o:["If","Though","Because","Unless"],a:1,cn:"尽管 5G 可能给我们带来好处，一些用户更关心它的潜在健康风险。",ops:["If「如果」","✓ Though「尽管」，让步关系","Because「因为」","Unless「除非」"],g:"care about「关心」；potential「潜在的」。",e:"好处 vs 担忧，让步转折 → Though。"},
+{q:"You can have your mobile phone ____ in a more specialized shop.",o:["repair","to repair","repaired","repairing"],a:2,cn:"你可以把手机拿到一家更专业的店里（让别人）修。",ops:["repair 使役结构中宾补须用过去分词/不定式","to repair：have sth done 结构中不用","✓ repaired：have sth done「让某物被做」","repairing 进行式，无被动义"],g:"specialized「专门的」。",e:"have sth done：手机「被修」→ repaired。"},
+{q:"The course is designed for students ____ English language proficiency is excellent.",o:["whose","who","that","which"],a:0,cn:"这门课程是为英语水平出色的学生设计的。",ops:["✓ whose：空格后是名词短语 English language proficiency","who：从句缺主语才能用","that：从句不缺主语或宾语","which 指物不指人"],g:"be designed for「为…而设计」。",e:"定语从句：空格后接名词 → 用 whose。"},
+{q:"If you ____ my advice last term, you would have passed the examination.",o:["took","were taken","would take","had taken"],a:3,cn:"要是你上学期听了我的建议，考试就通过了。",ops:["took 一般过去时，虚拟语气须用 had done","were taken 被动，无依据","would take 这是主句的形式","✓ had taken：对过去的虚拟从句"],g:"last term 是过去时间锚点 → 对过去的虚拟。",e:"虚拟语气：If + had done，would have done。"},
+{q:"Hardly had I gone out of my house ____ it rained heavily.",o:["than","that","when","until"],a:2,cn:"我刚出家门，雨就下大了。",ops:["than：no sooner...than 才用 than","that 无此搭配","✓ when：hardly...when 固定搭配","until「直到」"],g:"Hardly 置句首 → 过去完成时倒装 had I gone。",e:"hardly...when「刚…就…」。"},
+{q:"He can play almost every kind of music, but he is good at playing ____ .",o:["the piano","piano","a piano","that piano"],a:0,cn:"他几乎会演奏各种音乐，但最擅长弹钢琴。",ops:["✓ the piano：西洋乐器前加定冠词 the","piano 缺冠词","a piano 泛指「一架钢琴」，不合习惯","that piano 特指某架，无依据"],g:"be good at doing「擅长」。",e:"演奏乐器前加 the：play the piano。"},
+{q:"Most young people don't know the value of health ____ they lose it.",o:["after","until","when","because"],a:1,cn:"大多数年轻人直到失去健康，才知道健康的可贵。",ops:["after「在…之后」","✓ until：not...until「直到…才」","when「当…时」","because「因为」"],g:"the value of「…的价值」。",e:"not...until「直到…才」。"},
+{q:"It was because of the heavy fog ____ all the flights were delayed.",o:["what","which","that","why"],a:2,cn:"正是由于大雾，所有航班都延误了。",ops:["what 不能用于强调句","which 引导从句，此处是强调句","✓ that：It was...that 强调句型","why 表原因的定语从句，不符"],g:"判断技巧：去掉 It was...that 后句子仍完整 → 强调句。",e:"强调句型：It was because of...that...。"},
+{q:"Last week Jimmy with his classmates ____ kept busy preparing for the final examination.",o:["is","are","was","were"],a:2,cn:"上周 Jimmy 和同学们忙着准备期末考试。",ops:["is 时态错误（last week）","are 数与时态都错","✓ was：A with B 作主语，谓语随 A（Jimmy 单数）+ 过去时","were 数的错误"],g:"「A with/together with B」谓语随 A（就远原则）；be kept busy doing「忙于做」。",e:"Jimmy with his classmates 谓语随 Jimmy → was。"},
+{q:"The word is new to us. You'd better ____ in the dictionary.",o:["look at it","look it up","look for it","look it out"],a:1,cn:"这个词我们很生疏，你最好在词典里查一查。",ops:["look at it「看着它」","✓ look it up：look up「查阅」，代词宾格放中间","look for it「寻找它」","look it out 无此搭配"],g:"had better do sth「最好做」；be new to sb「对…生疏」。",e:"look up 查词典；it 放在动词与副词之间。"},
+{q:"—Would you like to go to the theatre with me tonight? —____ , but I don't think I can afford the time.",o:["That's nothing","Well done","I'd like to","I'm afraid not"],a:2,cn:"——今晚想和我一起去看戏吗？——我很想去，但恐怕抽不出时间。",ops:["That's nothing「没什么」","Well done「干得好」","✓ I'd like to（省略式）我很想去，与 but 转折衔接","I'm afraid not 是直接拒绝，与 but 重复矛盾"],g:"afford the time「抽得出时间」。",e:"委婉回应：I'd like to, but...。"},
+{q:"There are so many kinds of fruits in the markets that I can't decide ____ to buy.",o:["what","where","how","which"],a:3,cn:"市场里的水果种类太多，我决定不了买哪种。",ops:["what 泛指「什么」，在已列举的范围内选择用 which","where「在哪买」","how「怎么买」","✓ which「哪种」：在有限种类中挑选"],g:"so...that「如此…以至于」；疑问词 + to do 作宾语。",e:"which + to do 表示在列举范围内选择。"}
+],
+cloze:{passage:"Making friends is a skill. Like most skills, it {21} patience. If you want to meet people and make friends, you must be willing to {22} some action. You must first go where there are people. You won't make friends staying home {23}. Joining a club or group, talking to those who like the same things {24} you do is much easier. Or join someone {25} some activity.\nMany people are {26} when talking to new people. {27} meeting strangers means seeing the unknown. And it's human nature to feel a bit {28} about the unknown. Most of fears about {29} new people come from doubts about {30}. We imagine other people are {31} us — finding us too tall or too short, too this or too that. But don't forget that they must be feeling the same way. Try to accept yourself {32} you are, and try to put the other at ease. You'll both feel more comfortable.\nTry to act self-confident {33} you don't feel that way when you {34} a room full of strangers. Walk straight, look at other people directly and {35}. If you see someone you'd like to {36}, say something. Don't wait for {37} person to start a talk. Just meeting someone {38} does not mean that you'll make friends with that person. {39} is based on mutual liking and \"give and take\". It takes time to {40} friendship.",
+qs:[
+{o:["costs","needs","spends","wants"],a:1,cn:"交朋友是一门技能。和大多数技能一样，它需要耐心。",ops:["costs「花费（金钱为主）」","✓ needs「需要」","spends 主语应为人（花时间/钱）","wants「想要」，语气太弱"],g:"Like most skills 介词短语作状语。",e:"技能「需要」耐心 → needs。"},
+{o:["take","make","do","carry"],a:0,cn:"如果你想结识他人、交朋友，就必须愿意采取行动。",ops:["✓ take action「采取行动」，固定搭配","make action 无此搭配","do action 无此搭配","carry 需与 out 连用（carry out 执行）"],g:"be willing to do「愿意做」。",e:"take some action「采取一些行动」。"},
+{o:["lonely","yourself","alone","with you"],a:2,cn:"你必须先到有人群的地方去。独自待在家里是交不到朋友的。",ops:["lonely「孤独的」，情感色彩，作此状语不当","yourself 与主语不一致","✓ alone「独自」，客观陈述","with you 无此用法"],g:"won't＝will not。",e:"stay home alone「独自待在家」。"},
+{o:["as","that","which","what"],a:0,cn:"参加俱乐部或社团，和与你喜好相同的人交谈要容易得多。",ops:["✓ as：the same...as「与…相同」","that 无此搭配","which 无此搭配","what 无此搭配"],g:"Joining...talking... 并列动名词短语作主语。",e:"the same...as 固定搭配。"},
+{o:["with","in","on","to"],a:1,cn:"或者加入某人，一起进行某项活动。",ops:["with 无此搭配","✓ in：join sb in sth「加入某人做某事」","on 无此搭配","to 无此搭配"],g:"Or 表另作选择。",e:"join someone in some activity。"},
+{o:["shy","excited","afraid","worried"],a:0,cn:"许多人和陌生人说话时会害羞。",ops:["✓ shy「害羞的」，与下文 fears、doubts 呼应","excited「兴奋的」","afraid 需与 of 连用表「害怕的」","worried 需与 about 连用"],g:"when + 现在分词作时间状语。",e:"见陌生人害羞 → shy。"},
+{o:["At all","For all","In all","After all"],a:3,cn:"毕竟，见陌生人就是面对未知。",ops:["At all「根本」，用于否定句","For all「尽管」","In all「总共」","✓ After all「毕竟」"],g:"the unknown 形容词名词化「未知（事物）」。",e:"after all「毕竟」。"},
+{o:["unhappy","usual","upset","unlucky"],a:2,cn:"而对未知感到有点不安是人的天性。",ops:["unhappy「不快乐的」","usual「通常的」，语义不合","✓ upset「不安的」","unlucky「不幸的」"],g:"It's human nature to do「做…是人的天性」。",e:"feel upset about the unknown。"},
+{o:["meeting","talking","visiting","speaking"],a:0,cn:"对「见陌生人」的恐惧多半来自对自我的怀疑。",ops:["✓ meeting「（初次）见面」，与前文 talking to new people 呼应","talking「交谈」，与 about 后语义重复","visiting「拜访」","speaking「说话」"],g:"come from「源于」。",e:"fears about meeting new people。"},
+{o:["yourself","himself","yourselves","ourselves"],a:3,cn:"（同上句）恐惧源于对我们自己的怀疑。",ops:["yourself 人称与主语 we 不符","himself 人称不符","yourselves 人称不符","✓ ourselves：对应主语 we"],g:"imagine 后接宾语从句。",e:"主语是 we → doubts about ourselves。"},
+{o:["talking","saying","judging","laughing"],a:2,cn:"我们想象别人在评判我们——嫌我们太高、太矮等等。",ops:["talking「谈论」","saying 及物动词「说」","✓ judging「评判」，后文「太高太矮」正是评判内容","laughing 需与 at 连用"],g:"too...or too... 并列结构。",e:"想象别人在「评判」我们 → judging。"},
+{o:["like","as","what","that"],a:1,cn:"接受本真的自己，也让对方放松。",ops:["like「好像」，比喻义","✓ as：accept yourself as you are「接受本来的你」","what 不能引导此从句","that 无此用法"],g:"put sb at ease「使某人放松」。",e:"as you are「以你本来的样子」。"},
+{o:["even when","even if","as if","what if"],a:1,cn:"即使你并不觉得自信，走进满是陌生人的房间时也要表现得自信。",ops:["even when「即使当…时」，偏向时间","✓ even if「即使」，让步关系","as if「好像」","what if「要是…会怎样」"],g:"self-confident「表现自信的」。",e:"even if＝even though「即使」。"},
+{o:["come","go","enter","step to"],a:2,cn:"（同上句）当你走进满是陌生人的房间时。",ops:["come 需加 into 才接宾语","go 需加 into","✓ enter 及物动词，直接接宾语","step to 无此搭配（应为 step into）"],g:"a room full of strangers 形容词短语作后置定语。",e:"enter 是及物动词：enter a room。"},
+{o:["laugh","smile","cry","jump"],a:1,cn:"走路挺直，直视他人，并面带微笑。",ops:["laugh「大笑」","✓ smile「微笑」，自信的肢体语言","cry「哭」","jump「跳」"],g:"三个并列动词短语 walk...look...and smile。",e:"直视他人并微笑 → smile。"},
+{o:["speak to","talk about","say to","call up"],a:0,cn:"如果你看到想与之交谈的人，就主动说点什么。",ops:["✓ speak to sb「与某人交谈」","talk about「谈论（内容）」","say to：say 后须接说的内容","call up「打电话」"],g:"would like to do「想要做」。",e:"想与之交谈的人 → speak to。"},
+{o:["other","the other","another","others"],a:1,cn:"不要等「对方」先开口。",ops:["other 缺限定成分，不能单独作定语","✓ the other：交谈双方中的「另一方」","another 泛指三者以上中的另一个","others 复数代词，后不接名词"],g:"start a talk「开启对话」。",e:"特指交谈双方中的另一方 → the other person。"},
+{o:["old","young","new","little"],a:2,cn:"仅仅认识一个新面孔，并不意味着就能和那个人成为朋友。",ops:["old「旧的」","young「年轻的」","✓ new「新的」：meet someone new 认识新朋友","little「小的」"],g:"does not mean 中的 does 表强调否定。",e:"just meeting someone new「只是认识新的人」。"},
+{o:["Relation","Friendship","Connection","Feeling"],a:1,cn:"友谊建立在相互喜欢和「有来有往」的基础上。",ops:["Relation「关系」","✓ Friendship「友谊」，全文主题","Connection「联系」","Feeling「感觉」"],g:"be based on「建立在…之上」；mutual「相互的」。",e:"全文主题是交朋友 → Friendship。"},
+{o:["develop","start","keep","change"],a:0,cn:"培养友谊是需要时间的。",ops:["✓ develop「培养、发展」","start「开始」，友谊已在建立中","keep「维持」，与首建语境不符","change「改变」"],g:"It takes time to do「花时间做某事」。",e:"develop friendship「培养友谊」。"}
+]},
+reading:[
+{passage:"Have you ever been ill? When you are ill, you must be unhappy because your body becomes hot, and there are pains all over your body. You don't want to work and you stay in bed, feeling very sad.\nWhat makes us ill? It is germs. Germs are everywhere. They are very small and you can't find them with your eyes, but you can see them with a microscope. They are very small and there could be hundreds of them on a very small thing.\nGerms are always found in dirty water. When we look at dirty water under the microscope, we shall see them in it. So your father and mother will not let you drink dirty water. Germs aren't found only in water. They are found in air and dust. If you cut your finger, if some of the dust from the floor goes into the cut, some of the germs would go into your finger. Your finger would become big and red, and you will have much pain in it. Sometimes the germs would go into all of your body, and you would have pain everywhere.",
+qs:[
+{q:"Which of the following is TRUE?",o:["If things are very small, they are germs.","If things can't be seen, they must be germs.","Germs are only in dirty water.","Germs are everywhere around us."],a:3,cn:"下列哪项是正确的？",ops:["很小的东西就是细菌——推不出","看不见的东西必是细菌——同上","细菌只在脏水里——与「无处不在」矛盾","✓ 细菌在我们周围无处不在（Germs are everywhere）"],e:"第二段 Germs are everywhere；第三段说水里、空气、灰尘中都有。"},
+{q:"Why don't your parents let you drink dirty water?",o:["You haven't looked at it carefully.","Water can't be drunk in this way.","There must be lots of germs in it.","Water will make you ill."],a:2,cn:"你的父母为什么不让你喝脏水？",ops:["你没有仔细看它","水不能这样喝","✓ 里面一定有大量细菌（Germs are always found in dirty water）","水会让你生病——这是结果，直接原因是有细菌"],e:"细节题：脏水里总有大量细菌。"},
+{q:"Which of the following is NOT true?",o:["Germs can be found both in water and in the air.","Germs can go into your finger if it is cut.","If your temperature is not OK, there must be germs in your body.","If your finger isn't cut, there aren't any germs on it."],a:3,cn:"下列哪项是不正确的？",ops:["水和空气中都有细菌——与原文相符","割伤时细菌会进入手指——与原文相符","体温不正常体内必有细菌——表述绝对，但文中生病确与细菌相关，非本题答案","✓ 手指没割伤上面就没有细菌——与 Germs are everywhere 矛盾"],e:"判断题：细菌无处不在，「没割伤就没有细菌」错误。"},
+{q:"What's the main idea of the passage?",o:["Germs may make us ill.","Germs are in dirty water.","Don't drink dirty water.","Take care of your fingers."],a:0,cn:"这篇文章的主旨是什么？",ops:["✓ 细菌可能使我们生病","细菌在脏水里——细节","不要喝脏水——片面建议","照顾好你的手指——细节"],e:"主旨题：全文讲细菌是什么、在哪里、如何致病。"}
+]},
+{passage:"As we all know, English is an important subject in middle school. Everyone knows that they must learn English well, but some people don't know how to learn it well. Here are some suggestions which may help you with your English.\nThe biggest problem is people's own fear. They worry that they won't say things correctly or that they will look foolish so that they don't speak English at all. Don't be afraid of being laughed at. Only if we aren't afraid of making mistakes can we learn English well.\nThe fastest way to learn something is to do it again and again until you get it right. Learning English needs practice. Don't let a little fear stop you from getting what you want. The best way to learn English is to have a good environment. Take notes in English, put English books around your room, listen to English radios, as well as watch English news, movies and TV programs. Speak English with your friends whenever you can. The more English materials that you have around you, the faster you will learn it. Many people think that exercises and tests aren't much fun. However, by doing exercises and taking tests you can really improve your English. If you never test yourself, you will never know how much you are making progress.",
+qs:[
+{q:"The biggest problem of learning English is ____ .",o:["not knowing how to learn","being afraid of being laughed at","looking foolish","making mistakes"],a:1,cn:"学英语最大的问题是____。",ops:["不知道怎么学","✓ 害怕被嘲笑（people's own fear：怕说错被笑而干脆不开口）","看起来愚蠢——那是怕的内容","犯错误——正是要不怕的东西"],e:"细节题：The biggest problem is people's own fear。"},
+{q:"The fastest way to learn English well is ____ .",o:["practicing over and over again","listening to it every day","going over the fear","going to a foreign country"],a:0,cn:"学好英语最快的方式是____。",ops:["✓ 反复练习直到正确（do it again and again until you get it right）","每天听","克服恐惧","出国"],e:"细节题：The fastest way to learn something is to do it again and again。"},
+{q:"To create a good environment, you need to do many things except ____ .",o:["putting English books around your room","listening to English radios","watching English news and movies","speaking English with your friends only in class"],a:3,cn:"要营造好的环境，很多事都需要做，除了____。",ops:["房间四周放英语书——原文建议","听英语广播——原文建议","看英语新闻和电影——原文建议","✓ 只在课堂上和朋友说英语——原文说 whenever you can"],e:"排除题：原文是任何时候都说英语，「只在课堂上说」不在建议之列。"},
+{q:"According to the passage, English exercises and tests are ____ .",o:["very necessary","not helpful at all","very boring","not important"],a:0,cn:"根据文章，英语练习和测试____。",ops:["✓ 很有必要（can really improve your English）","毫无帮助","很无聊","不重要"],e:"细节题：做练习和参加测试能真正提高英语。"}
+]}
+],
+trans:[
+{en:"It's against the traffic laws to talk on the cellphone while driving.",zh:"开车时打电话是违反交通法规的。",e:"be against 违反；while driving＝while you are driving（当开车时）。"},
+{en:"Though we have made progress in learning, there is still a long way to go.",zh:"虽然我们在学习上取得了进步，但还有很长的路要走。",e:"though 虽然（不与 but 连用）；a long way to go 任重道远。"},
+{en:"In 2008, China successfully made history by hosting the Olympic Games for the first time.",zh:"2008年中国首次成功举办奥运会，创造了历史。",e:"by doing sth 通过做某事；host 主办；for the first time 首次。"},
+{en:"Good preparation before the interview is very important for the chance of success.",zh:"面试前的充分准备对获得成功的机会是至关重要的。",e:"good preparation 充分准备；the chance of success 成功的机会。"},
+{en:"Nowadays online shopping is more and more popular among consumers.",zh:"现在网上购物越来越受到消费者的喜爱。",e:"more and more popular 越来越流行；consumer 消费者；online shopping 网上购物。"}
+]}
+];
+/*DATA_END*/
 
       /* ===================== 工具 ===================== */
       const $ = (s) => document.querySelector(s);
@@ -2479,8 +1277,14 @@
             esc(srcLabel(b)) +
             "</span></div>";
         }
+        const cnBox =
+          review && b.cn
+            ? '<div class="trbox">📖 <b>句意</b>：' + esc(b.cn) + "</div>"
+            : "";
         const qt =
-          b.sec === 2 ? "" : '<div class="qtext">' + fmtQ(b.q) + " </div>";
+          b.sec === 2
+            ? cnBox
+            : '<div class="qtext">' + fmtQ(b.q) + "</div>" + cnBox;
         const opts = b.o
           .map((t, i) => {
             let cls = "",
@@ -2493,6 +1297,10 @@
                 cls = " wrongpick";
                 tag = '<span class="tag">你的选择</span>';
               }
+              const note =
+                b.ops && b.ops[i]
+                  ? '<span class="note">' + esc(b.ops[i]) + "</span>"
+                  : "";
               return (
                 '<div class="opt' +
                 cls +
@@ -2502,6 +1310,7 @@
                 esc(t) +
                 "</span>" +
                 tag +
+                note +
                 "</div>"
               );
             }
@@ -2521,7 +1330,12 @@
           })
           .join("");
         const expl = review
-          ? '<div class="expl">💡 ' + esc(b.e) + "</div>"
+          ? '<div class="expl">💡 ' +
+            esc(b.e) +
+            "</div>" +
+            (b.g
+              ? '<div class="expl g">🧩 <b>句中语法</b>：' + esc(b.g) + "</div>"
+              : "")
           : "";
         return (
           '<div class="card" id="qb-' +
