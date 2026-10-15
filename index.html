@@ -1578,7 +1578,7 @@ trans:[
           }
         });
         persist();
-        QUIZ.filter = "wrong";
+        QUIZ.filter = "all";
         renderResults();
       }
       function sectionSummaries() {
@@ -1626,7 +1626,10 @@ trans:[
           { pc: 0, pt: 0, qc: 0, n: 0 },
         );
         const wrongCount = sums.reduce((a, s) => a + (s.n - s.qc), 0);
-        if (wrongCount === 0) QUIZ.filter = "all";
+        const totalItems = QUIZ.blocks.filter(
+          (b) => b.k === "q" || b.k === "t",
+        ).length;
+        QUIZ._fc = { wrong: wrongCount, total: totalItems };
         const showScore = mock && QUIZ.mode === "mock";
         $("#app").innerHTML = `
   <div class="topbar"><span class="t">📊 练习结果</span><span class="m">用时 ${usedTime()}</span></div>
@@ -1639,7 +1642,7 @@ trans:[
   </div>
   <div class="rowbtns">
     <button class="bbtn pri" data-act="again">再来一套</button>
-    <button class="bbtn sec" data-act="filter">${QUIZ.filter === "wrong" ? "查看全部题目" : "只看错题"}</button>
+    <button class="bbtn sec" data-act="filter">${QUIZ.filter === "wrong" ? "查看全部题目（" + totalItems + "）" : "只看错题（" + wrongCount + "）"}</button>
     <button class="bbtn sec" data-act="home">回首页</button>
   </div>
   <div id="review"></div>`;
@@ -1743,9 +1746,12 @@ trans:[
         else if (act === "filter") {
           QUIZ.filter = QUIZ.filter === "wrong" ? "all" : "wrong";
           const b = $('[data-act="filter"]');
+          const fc = QUIZ._fc || { wrong: 0, total: 0 };
           if (b)
             b.textContent =
-              QUIZ.filter === "wrong" ? "查看全部题目" : "只看错题";
+              QUIZ.filter === "wrong"
+                ? "查看全部题目（" + fc.total + "）"
+                : "只看错题（" + fc.wrong + "）";
           renderReview();
         } else if (act === "rate") {
           const id = el.dataset.id,
